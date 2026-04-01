@@ -12,6 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+
 export const metadata: Metadata = {
   title: "Hotel-reservation",
   description: "Gestion des reservation en ligne des chambres d'hotel dans la province d'ituri en RDC",
