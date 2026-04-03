@@ -46,6 +46,10 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+--color-hotel-primary: var(--hotel-primary);
+--color-hotel-accent: var(--hotel-accent);
+--color-hotel-fond: var(--hotel-fond);
+--color-hotel-foreground: var(--hotel-foreground);
 }
 
 :root {
@@ -85,10 +89,6 @@
   --hotel-accent:#D4AF37;
   --hotel-foreground:#024232;
   --hotel-fond:#F8F9FA;
-  --color-hotel-primary: var(var(--hotel-primary));
-  --color-hotel-accent: var(var(--hotel-accent));
-  --color-hotel-fond: var((--hotel-fond));
-  --color-hotel-foreground: var((--hotel-fore-foreground));
 }
 
 .dark {
