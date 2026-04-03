@@ -86,7 +86,9 @@
   --hotel-foreground:#024232;
   --hotel-fond:#F8F9FA;
   --color-hotel-primary: var(var(--hotel-primary));
-  --color-hotel-primary: var(var(--hotel-primary));
+  --color-hotel-accent: var(var(--hotel-accent));
+  --color-hotel-fond: var((--hotel-fond));
+  --color-hotel-foreground: var((--hotel-fore-foreground));
 }
 
 .dark {
