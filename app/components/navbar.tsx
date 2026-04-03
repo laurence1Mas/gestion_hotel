@@ -74,7 +74,7 @@ export function Navbar() {
 
             <Button
               size="sm"
-              className="font-semibold bg-hotel-accent text-hotel-fond"
+              className="px-6 py-3 rounded-full font-semibold bg-hotel-accent text-hotel-fond"
             ><User className="h-4 w-4" />
               Se connectez
             </Button>
