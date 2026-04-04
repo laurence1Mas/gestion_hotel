@@ -1,21 +1,34 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next'
+import { Poppins, DM_Sans } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
+import './globals.css'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({ 
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: '--font-poppins',
+  display: 'swap'
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const dmSans = DM_Sans({ 
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: '--font-dm-sans',
+  display: 'swap'
 });
-
 
 export const metadata: Metadata = {
-  title: "Hotel-reservation",
-  description: "Gestion des reservation en ligne des chambres d'hotel dans la province d'ituri en RDC",
+  title: 'IturiStay - Réservation d\'Hôtels en Ituri, RDC',
+  description: 'Découvrez et réservez les meilleurs hôtels de la province d\'Ituri en République Démocratique du Congo. Réservation facile avec paiement mobile.',
+
+  icons: {
+    icon: [
+      {
+        url: '/icon.svg',
+        type: 'image',
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -24,11 +37,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
+    <html lang="fr" className={`${poppins.variable} ${dmSans.variable}`}>
+      <body className="font-sans antialiased bg-background text-foreground">
         {children}
       </body>
     </html>
