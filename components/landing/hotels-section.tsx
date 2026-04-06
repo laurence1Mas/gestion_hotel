@@ -88,9 +88,6 @@ export function HotelsSection() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
           <div className="space-y-2">
-            <Badge variant="secondary" className="rounded-full px-4 py-1">
-              Nos Hôtels
-            </Badge>
             <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground">
               Hôtels Populaires en Ituri
             </h2>

@@ -48,9 +48,6 @@ export function FeaturesSection() {
       <div className="container mx-auto px-4 md:px-6">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <Badge variant="secondary" className="rounded-full px-4 py-1 mb-4">
-            Nos Services
-          </Badge>
           <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
             Pourquoi Choisir IturiStay?
           </h2>
