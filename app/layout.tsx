@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Poppins, DM_Sans } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const poppins = Poppins({ 
@@ -20,14 +19,8 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: 'IturiStay - Réservation d\'Hôtels en Ituri, RDC',
   description: 'Découvrez et réservez les meilleurs hôtels de la province d\'Ituri en République Démocratique du Congo. Réservation facile avec paiement mobile.',
-
   icons: {
-    icon: [
-      {
-        url: '/icon.svg',
-        type: 'image',
-      },
-    ],
+    icon:"/favicon.png",
   },
 };
 
