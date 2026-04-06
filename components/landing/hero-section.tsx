@@ -32,10 +32,10 @@ export function HeroSection() {
               de l&apos;Ituri
             </h1>
             
-            <p className="text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            {/* <p className="text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed">
               Réservez facilement votre chambre dans les plus beaux établissements de la région. 
               Paiement sécurisé via Orange Money, M-Pesa et Airtel Money.
-            </p>
+            </p> */}
 
             {/* Search Box */}
             <div className="bg-card rounded-3xl p-4 md:p-6 shadow-lg border border-border max-w-2xl mx-auto lg:mx-0">
