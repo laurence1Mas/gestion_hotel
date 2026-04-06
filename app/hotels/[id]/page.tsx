@@ -9,39 +9,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
-import { 
-  MapPin, 
-  Star, 
-  Wifi, 
-  Car, 
-  Coffee,
-  Phone,
-  Mail,
-  ArrowLeft,
-  Users,
-  BedDouble,
-  Calendar,
-  Check,
-  Tv,
-  Wind,
-  ChevronLeft,
-  ChevronRight
-} from "lucide-react"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { MapPin, Star, Wifi, Car, Coffee, Phone, Mail, ArrowLeft, Users, BedDouble, Calendar, Check, Tv, Wind, ChevronLeft, ChevronRight} from "lucide-react"
+import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger,} from "@/components/ui/dialog"
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select"
 
 // Mock data - in production this would come from an API
 const hotelsData: Record<string, {
@@ -254,7 +224,7 @@ export default function HotelDetailPage() {
                 </p>
               </div>
 
-              {/* Amenities */}
+              {/* Équipements */}
               <div className="space-y-4">
                 <h2 className="font-serif text-xl font-semibold">Équipements</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -434,30 +404,6 @@ export default function HotelDetailPage() {
                     <Phone className="w-4 h-4 mr-2" />
                     Appeler Maintenant
                   </Button>
-                </CardContent>
-              </Card>
-
-              {/* Quick Book */}
-              <Card className="rounded-2xl">
-                <CardHeader>
-                  <CardTitle className="font-serif">Réservation Rapide</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="text-center p-4 bg-muted/50 rounded-xl">
-                    <p className="text-sm text-muted-foreground">Prix à partir de</p>
-                    <p className="font-serif text-3xl font-bold text-primary">
-                      ${Math.min(...hotel.rooms.map(r => r.price))}
-                    </p>
-                    <p className="text-sm text-muted-foreground">/nuit</p>
-                  </div>
-                  <Button asChild className="w-full rounded-full bg-primary">
-                    <Link href="/auth/register">
-                      Réserver Maintenant
-                    </Link>
-                  </Button>
-                  <p className="text-xs text-center text-muted-foreground">
-                    Paiement sécurisé via Mobile Money
-                  </p>
                 </CardContent>
               </Card>
             </div>
