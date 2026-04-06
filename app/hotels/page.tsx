@@ -8,31 +8,9 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
-import { 
-  Search, 
-  MapPin, 
-  Star, 
-  Wifi, 
-  Car, 
-  Coffee,
-  Filter,
-  SlidersHorizontal
-} from "lucide-react"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet"
+import {Search,MapPin,Star,Wifi,Car,Coffee,Filter,SlidersHorizontal } from "lucide-react"
+import {Select,SelectContent,SelectItem,SelectTrigger,SelectValue, } from "@/components/ui/select"
+import {Sheet,SheetContent,SheetDescription,SheetHeader,SheetTitle,SheetTrigger,} from "@/components/ui/sheet"
 import { Slider } from "@/components/ui/slider"
 import { Checkbox } from "@/components/ui/checkbox"
 
@@ -161,11 +139,11 @@ export default function HotelsPage() {
   const filteredHotels = hotels
     .filter(hotel => {
       const matchesSearch = hotel.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                            hotel.description.toLowerCase().includes(searchQuery.toLowerCase())
+        hotel.description.toLowerCase().includes(searchQuery.toLowerCase())
       const matchesCity = selectedCity === "Toutes" || hotel.city === selectedCity
       const matchesPrice = hotel.price >= priceRange[0] && hotel.price <= priceRange[1]
-      const matchesAmenities = selectedAmenities.length === 0 || 
-                               selectedAmenities.every(a => hotel.amenities.includes(a))
+      const matchesAmenities = selectedAmenities.length === 0 ||
+        selectedAmenities.every(a => hotel.amenities.includes(a))
       return matchesSearch && matchesCity && matchesPrice && matchesAmenities
     })
     .sort((a, b) => {
@@ -177,8 +155,8 @@ export default function HotelsPage() {
     })
 
   const toggleAmenity = (amenity: string) => {
-    setSelectedAmenities(prev => 
-      prev.includes(amenity) 
+    setSelectedAmenities(prev =>
+      prev.includes(amenity)
         ? prev.filter(a => a !== amenity)
         : [...prev, amenity]
     )
@@ -187,7 +165,7 @@ export default function HotelsPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      
+
       <main className="flex-1 bg-background">
         {/* Hero Section */}
         <section className="bg-gradient-to-br from-secondary via-background to-muted py-12 md:py-16">
@@ -199,7 +177,7 @@ export default function HotelsPage() {
               <p className="text-muted-foreground">
                 Explorez notre sélection d&apos;hôtels dans toute la province de l&apos;Ituri
               </p>
-              
+
               {/* Search Bar */}
               <div className="flex flex-col sm:flex-row gap-3 mt-6">
                 <div className="relative flex-1">
@@ -212,7 +190,7 @@ export default function HotelsPage() {
                   />
                 </div>
                 <Select value={selectedCity} onValueChange={setSelectedCity}>
-                  <SelectTrigger className="w-full sm:w-40 rounded-full h-12">
+                  <SelectTrigger className="w-full sm:w-40 rounded-full h-12 ">
                     <MapPin className="w-4 h-4 mr-2" />
                     <SelectValue />
                   </SelectTrigger>
@@ -235,7 +213,7 @@ export default function HotelsPage() {
               <p className="text-muted-foreground">
                 <span className="font-semibold text-foreground">{filteredHotels.length}</span> hôtels trouvés
               </p>
-              
+
               <div className="flex items-center gap-3">
                 <Select value={sortBy} onValueChange={setSortBy}>
                   <SelectTrigger className="w-44 rounded-full">
@@ -290,7 +268,7 @@ export default function HotelsPage() {
                             { id: "restaurant", label: "Restaurant" },
                           ].map(amenity => (
                             <div key={amenity.id} className="flex items-center gap-3">
-                              <Checkbox 
+                              <Checkbox
                                 id={amenity.id}
                                 checked={selectedAmenities.includes(amenity.id)}
                                 onCheckedChange={() => toggleAmenity(amenity.id)}
@@ -303,8 +281,8 @@ export default function HotelsPage() {
                         </div>
                       </div>
 
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
                         className="w-full rounded-full"
                         onClick={() => {
                           setPriceRange([0, 150])
@@ -326,7 +304,7 @@ export default function HotelsPage() {
                   <Link key={hotel.id} href={`/hotels/${hotel.id}`}>
                     <Card className="group overflow-hidden rounded-3xl border-border hover:shadow-xl transition-all duration-300 h-full">
                       <div className="relative overflow-hidden aspect-[4/3]">
-                        <img 
+                        <img
                           src={hotel.image}
                           alt={hotel.name}
                           className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
@@ -387,8 +365,8 @@ export default function HotelsPage() {
                   <p className="text-muted-foreground mb-4">
                     Essayez de modifier vos critères de recherche
                   </p>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     className="rounded-full"
                     onClick={() => {
                       setSearchQuery("")

@@ -9,10 +9,6 @@ export function CTASection() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* For Clients */}
           <div className="space-y-6 text-center md:text-left">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-foreground/10 text-primary-foreground text-sm">
-              <Users className="w-4 h-4" />
-              Pour les Voyageurs
-            </div>
             <h2 className="font-serif text-3xl md:text-4xl font-bold">
               Réservez Votre Chambre Maintenant
             </h2>
@@ -33,9 +29,8 @@ export function CTASection() {
               </Button>
               <Button 
                 asChild 
-                size="lg" 
-                variant="outline" 
-                className="rounded-full border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
+                size="lg"  
+                className="rounded-full bg-primary-foreground  text-primary hover:bg-primary-foreground/10 hover:text-primary-foreground/90"
               >
                 <Link href="/hotels">
                   Voir les Hôtels
@@ -46,10 +41,6 @@ export function CTASection() {
 
           {/* For Hotels */}
           <div className="bg-primary-foreground/10 rounded-3xl p-8 space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-foreground/10 text-primary-foreground text-sm">
-              <Hotel className="w-4 h-4" />
-              Pour les Hôtels
-            </div>
             <h3 className="font-serif text-2xl md:text-3xl font-bold">
               Inscrivez Votre Établissement
             </h3>
