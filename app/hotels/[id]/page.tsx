@@ -410,7 +410,6 @@ export default function HotelDetailPage() {
           </div>
         </section>
       </main>
-
       <Footer />
     </div>
   )
