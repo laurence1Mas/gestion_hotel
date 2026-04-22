@@ -1,13 +1,18 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Menu, X, User, Hotel } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,} from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Hotel, Menu, User, X } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 
 export function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
@@ -16,21 +21,35 @@ export function Header() {
           <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground">
             <Hotel className="w-5 h-5" />
           </div>
-          <span className="font-serif text-xl font-bold text-foreground">IturiStay</span>
+          <span className="font-serif text-xl font-bold text-foreground">
+            IturiStay
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
-          <Link href="/" className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">
+          <Link
+            href="/"
+            className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+          >
             Accueil
           </Link>
-          <Link href="/hotels" className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">
+          <Link
+            href="/hotels"
+            className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+          >
             Hôtels
           </Link>
-          <Link href="#features" className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">
+          <Link
+            href="/services"
+            className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+          >
             Services
           </Link>
-          <Link href="#contact" className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">
+          <Link
+            href="/contact"
+            className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+          >
             Contact
           </Link>
         </nav>
@@ -51,16 +70,20 @@ export function Header() {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/auth/login?type=hotel" className="w-full cursor-pointer">
+                <Link
+                  href="/auth/login?type=hotel"
+                  className="w-full cursor-pointer"
+                >
                   Responsable Hôtel
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button asChild className="rounded-full bg-primary hover:bg-primary/90">
-            <Link href="/auth/register">
-              {"S'inscrire"}
-            </Link>
+          <Button
+            asChild
+            className="rounded-full bg-primary hover:bg-primary/90"
+          >
+            <Link href="/auth/register">{"S'inscrire"}</Link>
           </Button>
         </div>
 
@@ -69,7 +92,11 @@ export function Header() {
           className="md:hidden p-2 rounded-full hover:bg-muted transition-colors"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {isMenuOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <Menu className="w-6 h-6" />
+          )}
         </button>
       </div>
 
@@ -77,29 +104,29 @@ export function Header() {
       {isMenuOpen && (
         <div className="md:hidden border-t border-border bg-background">
           <nav className="flex flex-col p-4 gap-2">
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="px-4 py-3 rounded-full text-sm font-medium hover:bg-muted transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               Accueil
             </Link>
-            <Link 
-              href="/hotels" 
+            <Link
+              href="/hotels"
               className="px-4 py-3 rounded-full text-sm font-medium hover:bg-muted transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               Hôtels
             </Link>
-            <Link 
-              href="#features" 
+            <Link
+              href="#features"
               className="px-4 py-3 rounded-full text-sm font-medium hover:bg-muted transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
               Services
             </Link>
-            <Link 
-              href="#contact" 
+            <Link
+              href="#contact"
               className="px-4 py-3 rounded-full text-sm font-medium hover:bg-muted transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
@@ -120,5 +147,5 @@ export function Header() {
         </div>
       )}
     </header>
-  )
+  );
 }
