@@ -178,6 +178,7 @@ export default function HotelsPage() {
   const [priceRange, setPriceRange] = useState([0, 150]);
   const [sortBy, setSortBy] = useState("rating");
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
+  const [open, setOpen] = useState(false);
 
   const filteredHotels = hotels
     .filter((hotel) => {
@@ -280,80 +281,119 @@ export default function HotelsPage() {
                   </SelectContent>
                 </Select>
 
-                <Sheet>
+                <Sheet open={open} onOpenChange={setOpen}>
                   <SheetTrigger asChild>
                     <Button variant="outline" className="rounded-full">
                       <SlidersHorizontal className="w-4 h-4 mr-2" />
                       Filtres
                     </Button>
                   </SheetTrigger>
-                  <SheetContent>
-                    <SheetHeader>
-                      <SheetTitle className="font-serif">Filtres</SheetTitle>
-                      <SheetDescription>
-                        Affinez votre recherche
-                      </SheetDescription>
-                    </SheetHeader>
-                    <div className="py-6 space-y-6">
-                      {/* Price Range */}
-                      <div className="space-y-4">
-                        <h4 className="font-medium">Prix par nuit</h4>
+                  <SheetContent className="flex flex-col h-full p-0">
+                    {/* HEADER */}
+                    <div className="px-6 py-5 border-b space-y-2">
+                      <SheetHeader>
+                        <SheetTitle className="text-xl font-semibold">
+                          Filtres
+                        </SheetTitle>
+                        <SheetDescription>
+                          Personnalisez votre recherche
+                        </SheetDescription>
+                      </SheetHeader>
+
+                      {/* ✅ COMPTEUR ICI */}
+                      <p className="text-xl text-primary font-bold">
+                        {filteredHotels.length} hôtel
+                        {filteredHotels.length > 1 && "s"} trouvé
+                        {filteredHotels.length > 1 && "s"}
+                      </p>
+                    </div>
+
+                    {/* CONTENT */}
+                    <div className="flex-1 overflow-y-auto px-6 py-6 space-y-10">
+                      {/* PRICE */}
+                      <div className="space-y-5">
+                        <div>
+                          <h4 className="text-base font-semibold">Budget</h4>
+                          <p className="text-sm text-muted-foreground">
+                            ${priceRange[0]} — ${priceRange[1]} / nuit
+                          </p>
+                        </div>
+
                         <Slider
                           value={priceRange}
                           onValueChange={setPriceRange}
                           max={150}
                           step={5}
-                          className="mt-2"
                         />
-                        <div className="flex justify-between text-sm text-muted-foreground">
-                          <span>${priceRange[0]}</span>
-                          <span>${priceRange[1]}</span>
-                        </div>
                       </div>
 
-                      {/* Amenities */}
+                      {/* ✅ AMENITIES (CHECKBOX DESIGN) */}
                       <div className="space-y-4">
-                        <h4 className="font-medium">Équipements</h4>
+                        <h4 className="text-base font-semibold">Équipements</h4>
+
                         <div className="space-y-3">
                           {[
                             { id: "wifi", label: "WiFi" },
                             { id: "parking", label: "Parking" },
                             { id: "restaurant", label: "Restaurant" },
-                          ].map((amenity) => (
-                            <div
-                              key={amenity.id}
-                              className="flex items-center gap-3"
-                            >
-                              <Checkbox
-                                id={amenity.id}
-                                checked={selectedAmenities.includes(amenity.id)}
-                                onCheckedChange={() =>
-                                  toggleAmenity(amenity.id)
-                                }
-                              />
+                          ].map((amenity) => {
+                            const active = selectedAmenities.includes(
+                              amenity.id,
+                            );
+
+                            return (
                               <label
-                                htmlFor={amenity.id}
-                                className="text-sm cursor-pointer"
+                                key={amenity.id}
+                                className={`flex items-center justify-between px-2 py-2 rounded-lg cursor-pointer transition
+                ${active ? "bg-muted/60" : "hover:bg-muted/40"}
+              `}
                               >
-                                {amenity.label}
+                                <div className="flex items-center gap-3">
+                                  <Checkbox
+                                    checked={active}
+                                    onCheckedChange={() =>
+                                      toggleAmenity(amenity.id)
+                                    }
+                                  />
+                                  <span className="text-sm">
+                                    {amenity.label}
+                                  </span>
+                                </div>
+
+                                {/* petit indicateur visuel */}
+                                {active && (
+                                  <span className="text-xs text-primary font-medium">
+                                    Actif
+                                  </span>
+                                )}
                               </label>
-                            </div>
-                          ))}
+                            );
+                          })}
                         </div>
                       </div>
 
-                      <Button
-                        variant="outline"
-                        className="w-full rounded-full"
+                      {/* RESET */}
+                      <button
                         onClick={() => {
                           setPriceRange([0, 150]);
                           setSelectedAmenities([]);
                         }}
+                        className="text-sm text-muted-foreground hover:text-foreground transition text-left"
                       >
                         Réinitialiser les filtres
+                      </button>
+                    </div>
+
+                    {/* FOOTER */}
+                    <div className="p-5 border-t">
+                      <Button
+                        className="w-full rounded-full h-12 text-base"
+                        onClick={() => setOpen(false)}
+                      >
+                        Appliquer les filtres
                       </Button>
                     </div>
-                  </SheetContent>
+                  </SheetContent>{" "}
                 </Sheet>
               </div>
             </div>
