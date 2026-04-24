@@ -3,13 +3,14 @@
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
+  // DropdownMenuContent,
+  // DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Hotel, Menu, User, X } from "lucide-react";
+import { Menu, User, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import Image from "next/image";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,12 +19,12 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground">
-            <Hotel className="w-5 h-5" />
-          </div>
-          <span className="font-serif text-xl font-bold text-foreground">
-            Zua Place
-          </span>
+          <Image
+            src="/secondary_logo.svg"
+            alt="logo primaire Zua Place"
+            width={120}
+            height={80}
+          />
         </Link>
 
         {/* Desktop Navigation */}

@@ -45,6 +45,30 @@ const hotels = [
   },
   {
     id: 4,
+    name: "Grand Hôtel du Lac",
+    city: "Bunia",
+    rating: 4.6,
+    reviews: 89,
+    price: 65,
+    image:
+      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&h=400&fit=crop",
+    amenities: ["wifi", "restaurant"],
+    featured: false,
+  },
+  {
+    id: 5,
+    name: "Résidence Mahagi",
+    city: "Mahagi",
+    rating: 4.5,
+    reviews: 67,
+    price: 50,
+    image:
+      "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&h=400&fit=crop",
+    amenities: ["wifi", "parking"],
+    featured: false,
+  },
+  {
+    id: 6,
     name: "Auberge de l'Est",
     city: "Aru",
     rating: 4.3,
@@ -56,19 +80,19 @@ const hotels = [
     featured: false,
   },
   {
-    id: 5,
-    name: "Hôtel Sunrise",
-    city: "Bunia",
-    rating: 4.7,
-    reviews: 98,
-    price: 75,
+    id: 7,
+    name: "Résidence Mahagi",
+    city: "Mahagi",
+    rating: 4.5,
+    reviews: 67,
+    price: 50,
     image:
-      "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&h=400&fit=crop",
-    amenities: ["wifi", "parking", "restaurant"],
-    featured: true,
+      "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&h=400&fit=crop",
+    amenities: ["wifi", "parking"],
+    featured: false,
   },
   {
-    id: 4,
+    id: 8,
     name: "Auberge de l'Est",
     city: "Aru",
     rating: 4.3,
@@ -116,7 +140,7 @@ export function HotelsSection() {
                     className="w-full h-full object-cover rounded-none object-center transition-transform duration-500"
                   />
                   {hotel.featured && (
-                    <Badge className="absolute top-4 left-4 rounded-full bg-accent text-accent-foreground">
+                    <Badge className="absolute top-4 left-4 rounded-full bg-yellow-500 text-accent-foreground">
                       Populaire
                     </Badge>
                   )}
@@ -132,7 +156,7 @@ export function HotelsSection() {
                         {hotel.city}
                       </div>
                       <div className=" py-1 flex items-center gap-1">
-                        <Star className="w-4 h-4 text-accent fill-accent" />
+                        <Star className="w-4 h-4 text-yellow-500  fill-yellow-500" />
                         <span className="font-semibold text-sm">
                           {hotel.rating}
                         </span>
@@ -144,7 +168,7 @@ export function HotelsSection() {
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="text-right">
-                      <p className="font-serif text-xl font-bold text-primary">
+                      <p className="font-serif text-xl font-bold text-secondary">
                         ${hotel.price}{" "}
                         <span className="text-xs text-muted-foreground font-light">
                           par nuit

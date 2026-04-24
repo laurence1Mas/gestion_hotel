@@ -13,11 +13,11 @@
   --card-foreground: oklch(0.15 0.02 260);
 
   /* PRIMARY (bleu #001755) */
-  --primary: oklch(0.22 0.08 260);
+  --primary: oklch(66.897% 0.14417 239.079);
   --primary-foreground: oklch(0.98 0.01 260);
 
   /* SECONDARY (gris #393D3D) */
-  --secondary: oklch(0.35 0.02 260);
+  --secondary: oklch(29.949% 0.09988 283.256);
   --secondary-foreground: oklch(0.98 0 0);
 
   /* ACCENT (rose #E90055) */
