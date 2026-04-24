@@ -1,18 +1,39 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import {Search,MapPin,Star,Wifi,Car,Coffee,Filter,SlidersHorizontal } from "lucide-react"
-import {Select,SelectContent,SelectItem,SelectTrigger,SelectValue, } from "@/components/ui/select"
-import {Sheet,SheetContent,SheetDescription,SheetHeader,SheetTitle,SheetTrigger,} from "@/components/ui/sheet"
-import { Slider } from "@/components/ui/slider"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Slider } from "@/components/ui/slider";
+import {
+  Car,
+  Coffee,
+  MapPin,
+  Search,
+  SlidersHorizontal,
+  Star,
+  Wifi,
+} from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 
 const hotels = [
   {
@@ -22,9 +43,11 @@ const hotels = [
     rating: 4.8,
     reviews: 124,
     price: 85,
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop",
     amenities: ["wifi", "parking", "restaurant"],
-    description: "Hôtel de luxe au coeur de Bunia avec vue panoramique sur la ville.",
+    description:
+      "Hôtel de luxe au coeur de Bunia avec vue panoramique sur la ville.",
     rooms: 24,
     featured: true,
   },
@@ -35,9 +58,11 @@ const hotels = [
     rating: 4.6,
     reviews: 89,
     price: 65,
-    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&h=400&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&h=400&fit=crop",
     amenities: ["wifi", "restaurant"],
-    description: "Établissement élégant près du lac avec restaurant gastronomique.",
+    description:
+      "Établissement élégant près du lac avec restaurant gastronomique.",
     rooms: 18,
     featured: false,
   },
@@ -48,9 +73,11 @@ const hotels = [
     rating: 4.5,
     reviews: 67,
     price: 50,
-    image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&h=400&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&h=400&fit=crop",
     amenities: ["wifi", "parking"],
-    description: "Résidence familiale avec chambres confortables et accueil chaleureux.",
+    description:
+      "Résidence familiale avec chambres confortables et accueil chaleureux.",
     rooms: 12,
     featured: false,
   },
@@ -61,7 +88,8 @@ const hotels = [
     rating: 4.3,
     reviews: 45,
     price: 40,
-    image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600&h=400&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600&h=400&fit=crop",
     amenities: ["wifi", "restaurant"],
     description: "Auberge authentique offrant une expérience locale unique.",
     rooms: 8,
@@ -74,9 +102,11 @@ const hotels = [
     rating: 4.7,
     reviews: 98,
     price: 75,
-    image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&h=400&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&h=400&fit=crop",
     amenities: ["wifi", "parking", "restaurant"],
-    description: "Hôtel moderne avec équipements de qualité et service impeccable.",
+    description:
+      "Hôtel moderne avec équipements de qualité et service impeccable.",
     rooms: 20,
     featured: true,
   },
@@ -87,7 +117,8 @@ const hotels = [
     rating: 4.4,
     reviews: 56,
     price: 55,
-    image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&h=400&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&h=400&fit=crop",
     amenities: ["wifi", "parking"],
     description: "Villa pittoresque entourée de verdure tropicale.",
     rooms: 10,
@@ -100,9 +131,11 @@ const hotels = [
     rating: 4.2,
     reviews: 34,
     price: 45,
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&h=400&fit=crop",
     amenities: ["wifi"],
-    description: "Hôtel bien situé au centre d'Irumu pour voyageurs d'affaires.",
+    description:
+      "Hôtel bien situé au centre d'Irumu pour voyageurs d'affaires.",
     rooms: 15,
     featured: false,
   },
@@ -113,54 +146,69 @@ const hotels = [
     rating: 4.6,
     reviews: 42,
     price: 60,
-    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&h=400&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&h=400&fit=crop",
     amenities: ["wifi", "parking", "restaurant"],
-    description: "Lodge écologique au coeur de la nature avec activités de découverte.",
+    description:
+      "Lodge écologique au coeur de la nature avec activités de découverte.",
     rooms: 14,
     featured: true,
   },
-]
+];
 
-const cities = ["Toutes", "Bunia", "Mahagi", "Aru", "Djugu", "Irumu", "Mambasa"]
+const cities = [
+  "Toutes",
+  "Bunia",
+  "Mahagi",
+  "Aru",
+  "Djugu",
+  "Irumu",
+  "Mambasa",
+];
 
 const amenityIcons: Record<string, React.ReactNode> = {
   wifi: <Wifi className="w-4 h-4" />,
   parking: <Car className="w-4 h-4" />,
   restaurant: <Coffee className="w-4 h-4" />,
-}
+};
 
 export default function HotelsPage() {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [selectedCity, setSelectedCity] = useState("Toutes")
-  const [priceRange, setPriceRange] = useState([0, 150])
-  const [sortBy, setSortBy] = useState("rating")
-  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([])
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCity, setSelectedCity] = useState("Toutes");
+  const [priceRange, setPriceRange] = useState([0, 150]);
+  const [sortBy, setSortBy] = useState("rating");
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
+  const [open, setOpen] = useState(false);
 
   const filteredHotels = hotels
-    .filter(hotel => {
-      const matchesSearch = hotel.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        hotel.description.toLowerCase().includes(searchQuery.toLowerCase())
-      const matchesCity = selectedCity === "Toutes" || hotel.city === selectedCity
-      const matchesPrice = hotel.price >= priceRange[0] && hotel.price <= priceRange[1]
-      const matchesAmenities = selectedAmenities.length === 0 ||
-        selectedAmenities.every(a => hotel.amenities.includes(a))
-      return matchesSearch && matchesCity && matchesPrice && matchesAmenities
+    .filter((hotel) => {
+      const matchesSearch =
+        hotel.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        hotel.description.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCity =
+        selectedCity === "Toutes" || hotel.city === selectedCity;
+      const matchesPrice =
+        hotel.price >= priceRange[0] && hotel.price <= priceRange[1];
+      const matchesAmenities =
+        selectedAmenities.length === 0 ||
+        selectedAmenities.every((a) => hotel.amenities.includes(a));
+      return matchesSearch && matchesCity && matchesPrice && matchesAmenities;
     })
     .sort((a, b) => {
-      if (sortBy === "rating") return b.rating - a.rating
-      if (sortBy === "price-low") return a.price - b.price
-      if (sortBy === "price-high") return b.price - a.price
-      if (sortBy === "reviews") return b.reviews - a.reviews
-      return 0
-    })
+      if (sortBy === "rating") return b.rating - a.rating;
+      if (sortBy === "price-low") return a.price - b.price;
+      if (sortBy === "price-high") return b.price - a.price;
+      if (sortBy === "reviews") return b.reviews - a.reviews;
+      return 0;
+    });
 
   const toggleAmenity = (amenity: string) => {
-    setSelectedAmenities(prev =>
+    setSelectedAmenities((prev) =>
       prev.includes(amenity)
-        ? prev.filter(a => a !== amenity)
-        : [...prev, amenity]
-    )
-  }
+        ? prev.filter((a) => a !== amenity)
+        : [...prev, amenity],
+    );
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -175,11 +223,12 @@ export default function HotelsPage() {
                 Trouvez Votre Hôtel Idéal
               </h1>
               <p className="text-muted-foreground">
-                Explorez notre sélection d&apos;hôtels dans toute la province de l&apos;Ituri
+                Explorez notre sélection d&apos;hôtels dans toute la province de
+                l&apos;Ituri
               </p>
 
               {/* Search Bar */}
-              <div className="flex flex-col sm:flex-row gap-3 mt-6">
+              <div className="flex flex-col sm:flex-row justify-center items-center gap-3 mt-6">
                 <div className="relative flex-1">
                   <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                   <Input
@@ -190,13 +239,15 @@ export default function HotelsPage() {
                   />
                 </div>
                 <Select value={selectedCity} onValueChange={setSelectedCity}>
-                  <SelectTrigger className="w-full sm:w-40 rounded-full h-12 ">
-                    <MapPin className="w-4 h-4 mr-2" />
+                  <SelectTrigger className="w-full sm:w-50 sm:h-12 rounded-full pl-12 h-12 relative flex items-center">
+                    <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {cities.map(city => (
-                      <SelectItem key={city} value={city}>{city}</SelectItem>
+                    {cities.map((city) => (
+                      <SelectItem key={city} value={city}>
+                        {city}
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -211,7 +262,10 @@ export default function HotelsPage() {
             {/* Filters Bar */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
               <p className="text-muted-foreground">
-                <span className="font-semibold text-foreground">{filteredHotels.length}</span> hôtels trouvés
+                <span className="font-semibold text-foreground">
+                  {filteredHotels.length}
+                </span>{" "}
+                hôtels trouvés
               </p>
 
               <div className="flex items-center gap-3">
@@ -227,72 +281,119 @@ export default function HotelsPage() {
                   </SelectContent>
                 </Select>
 
-                <Sheet>
+                <Sheet open={open} onOpenChange={setOpen}>
                   <SheetTrigger asChild>
                     <Button variant="outline" className="rounded-full">
                       <SlidersHorizontal className="w-4 h-4 mr-2" />
                       Filtres
                     </Button>
                   </SheetTrigger>
-                  <SheetContent>
-                    <SheetHeader>
-                      <SheetTitle className="font-serif">Filtres</SheetTitle>
-                      <SheetDescription>
-                        Affinez votre recherche
-                      </SheetDescription>
-                    </SheetHeader>
-                    <div className="py-6 space-y-6">
-                      {/* Price Range */}
-                      <div className="space-y-4">
-                        <h4 className="font-medium">Prix par nuit</h4>
+                  <SheetContent className="flex flex-col h-full p-0">
+                    {/* HEADER */}
+                    <div className="px-6 py-5 border-b space-y-2">
+                      <SheetHeader>
+                        <SheetTitle className="text-xl font-semibold">
+                          Filtres
+                        </SheetTitle>
+                        <SheetDescription>
+                          Personnalisez votre recherche
+                        </SheetDescription>
+                      </SheetHeader>
+
+                      {/* ✅ COMPTEUR ICI */}
+                      <p className="text-xl text-primary font-bold">
+                        {filteredHotels.length} hôtel
+                        {filteredHotels.length > 1 && "s"} trouvé
+                        {filteredHotels.length > 1 && "s"}
+                      </p>
+                    </div>
+
+                    {/* CONTENT */}
+                    <div className="flex-1 overflow-y-auto px-6 py-6 space-y-10">
+                      {/* PRICE */}
+                      <div className="space-y-5">
+                        <div>
+                          <h4 className="text-base font-semibold">Budget</h4>
+                          <p className="text-sm text-muted-foreground">
+                            ${priceRange[0]} — ${priceRange[1]} / nuit
+                          </p>
+                        </div>
+
                         <Slider
                           value={priceRange}
                           onValueChange={setPriceRange}
                           max={150}
                           step={5}
-                          className="mt-2"
                         />
-                        <div className="flex justify-between text-sm text-muted-foreground">
-                          <span>${priceRange[0]}</span>
-                          <span>${priceRange[1]}</span>
-                        </div>
                       </div>
 
-                      {/* Amenities */}
+                      {/* ✅ AMENITIES (CHECKBOX DESIGN) */}
                       <div className="space-y-4">
-                        <h4 className="font-medium">Équipements</h4>
+                        <h4 className="text-base font-semibold">Équipements</h4>
+
                         <div className="space-y-3">
                           {[
                             { id: "wifi", label: "WiFi" },
                             { id: "parking", label: "Parking" },
                             { id: "restaurant", label: "Restaurant" },
-                          ].map(amenity => (
-                            <div key={amenity.id} className="flex items-center gap-3">
-                              <Checkbox
-                                id={amenity.id}
-                                checked={selectedAmenities.includes(amenity.id)}
-                                onCheckedChange={() => toggleAmenity(amenity.id)}
-                              />
-                              <label htmlFor={amenity.id} className="text-sm cursor-pointer">
-                                {amenity.label}
+                          ].map((amenity) => {
+                            const active = selectedAmenities.includes(
+                              amenity.id,
+                            );
+
+                            return (
+                              <label
+                                key={amenity.id}
+                                className={`flex items-center justify-between px-2 py-2 rounded-lg cursor-pointer transition
+                ${active ? "bg-muted/60" : "hover:bg-muted/40"}
+              `}
+                              >
+                                <div className="flex items-center gap-3">
+                                  <Checkbox
+                                    checked={active}
+                                    onCheckedChange={() =>
+                                      toggleAmenity(amenity.id)
+                                    }
+                                  />
+                                  <span className="text-sm">
+                                    {amenity.label}
+                                  </span>
+                                </div>
+
+                                {/* petit indicateur visuel */}
+                                {active && (
+                                  <span className="text-xs text-primary font-medium">
+                                    Actif
+                                  </span>
+                                )}
                               </label>
-                            </div>
-                          ))}
+                            );
+                          })}
                         </div>
                       </div>
 
-                      <Button
-                        variant="outline"
-                        className="w-full rounded-full"
+                      {/* RESET */}
+                      <button
                         onClick={() => {
-                          setPriceRange([0, 150])
-                          setSelectedAmenities([])
+                          setPriceRange([0, 150]);
+                          setSelectedAmenities([]);
                         }}
+                        className="text-sm text-muted-foreground hover:text-foreground transition text-left"
                       >
                         Réinitialiser les filtres
+                      </button>
+                    </div>
+
+                    {/* FOOTER */}
+                    <div className="p-5 border-t">
+                      <Button
+                        className="w-full rounded-full h-12 text-base"
+                        onClick={() => setOpen(false)}
+                      >
+                        Appliquer les filtres
                       </Button>
                     </div>
-                  </SheetContent>
+                  </SheetContent>{" "}
                 </Sheet>
               </div>
             </div>
@@ -316,8 +417,12 @@ export default function HotelsPage() {
                         )}
                         <div className="absolute bottom-4 right-4 bg-card/90 backdrop-blur rounded-full px-3 py-1 flex items-center gap-1">
                           <Star className="w-4 h-4 text-accent fill-accent" />
-                          <span className="font-semibold text-sm">{hotel.rating}</span>
-                          <span className="text-xs text-muted-foreground">({hotel.reviews})</span>
+                          <span className="font-semibold text-sm">
+                            {hotel.rating}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            ({hotel.reviews})
+                          </span>
                         </div>
                       </div>
                       <CardContent className="p-5">
@@ -347,8 +452,12 @@ export default function HotelsPage() {
                               ))}
                             </div>
                             <div className="text-right">
-                              <p className="font-serif text-xl font-bold text-primary">${hotel.price}</p>
-                              <p className="text-xs text-muted-foreground">/nuit</p>
+                              <p className="font-serif text-xl font-bold text-primary">
+                                ${hotel.price}
+                              </p>
+                              <p className="text-xs text-muted-foreground">
+                                /nuit
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -361,7 +470,9 @@ export default function HotelsPage() {
               <Card className="rounded-3xl">
                 <CardContent className="py-16 text-center">
                   <Search className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="font-serif text-xl font-semibold mb-2">Aucun hôtel trouvé</h3>
+                  <h3 className="font-serif text-xl font-semibold mb-2">
+                    Aucun hôtel trouvé
+                  </h3>
                   <p className="text-muted-foreground mb-4">
                     Essayez de modifier vos critères de recherche
                   </p>
@@ -369,10 +480,10 @@ export default function HotelsPage() {
                     variant="outline"
                     className="rounded-full"
                     onClick={() => {
-                      setSearchQuery("")
-                      setSelectedCity("Toutes")
-                      setPriceRange([0, 150])
-                      setSelectedAmenities([])
+                      setSearchQuery("");
+                      setSelectedCity("Toutes");
+                      setPriceRange([0, 150]);
+                      setSelectedAmenities([]);
                     }}
                   >
                     Réinitialiser les filtres
@@ -386,5 +497,5 @@ export default function HotelsPage() {
 
       <Footer />
     </div>
-  )
+  );
 }
