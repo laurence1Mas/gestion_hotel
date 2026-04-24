@@ -22,7 +22,7 @@ export function Header() {
             <Hotel className="w-5 h-5" />
           </div>
           <span className="font-serif text-xl font-bold text-foreground">
-            IturiStay
+            Zua Place
           </span>
         </Link>
 
@@ -58,31 +58,15 @@ export function Header() {
         <div className="hidden md:flex items-center gap-3">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="rounded-full">
-                <User className="w-4 h-4 mr-2" />
-                Connexion
-              </Button>
+              <Link href="/auth/login">
+                <Button variant="outline">
+                  <User className="w-4 h-4 mr-2" />
+                  Connexion
+                </Button>
+              </Link>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
-              <DropdownMenuItem asChild>
-                <Link href="/auth/login" className="w-full cursor-pointer">
-                  Client
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link
-                  href="/auth/login?type=hotel"
-                  className="w-full cursor-pointer"
-                >
-                  Responsable Hôtel
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
           </DropdownMenu>
-          <Button
-            asChild
-            className="rounded-full bg-primary hover:bg-primary/90"
-          >
+          <Button asChild className=" bg-primary hover:bg-primary/90">
             <Link href="/auth/register">{"S'inscrire"}</Link>
           </Button>
         </div>

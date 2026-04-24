@@ -14,7 +14,7 @@ export function HeroSection() {
   return (
     <section className="relative min-h-[50vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-secondary via-background to-muted" />
+      <div className="absolute inset-0" />
 
       <div className="relative container mx-auto px-4 md:px-6 py-12 md:py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">

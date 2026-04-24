@@ -92,19 +92,19 @@ export function HotelsSection() {
     <section className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4 md:px-6">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between items-center gap-4 mb-12">
           <div className="space-y-2">
             <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground">
-              Hôtels Populaires en Ituri
+              Nos sélections d’hôtels
             </h2>
             <p className="text-muted-foreground max-w-lg">
-              Découvrez notre sélection des meilleurs établissements de la
-              province
+              Découvrez notre sélection d’établissements soigneusement choisis
+              pour vous offrir un séjour confortable, agréable et inoubliable.
             </p>
           </div>
-          <Button asChild variant="outline" className="rounded-full w-fit">
+          <Button asChild variant="outline" className=" w-fit">
             <Link href="/hotels">
-              Voir tous les hôtels
+              Découvrez tous les hôtels
               <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </Button>
@@ -114,12 +114,12 @@ export function HotelsSection() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {hotels.map((hotel) => (
             <Link key={hotel.id} href={`/hotels/${hotel.id}`}>
-              <Card className="group overflow-hidden rounded-md shadow-sm pt-0 hover:shadow-md transition-all duration-300 h-full">
+              <Card className="group overflow-hidden rounded-none shadow-sm p-4 hover:shadow-md transition-all duration-300 h-full">
                 <div className="relative overflow-hidden aspect-[4/3]">
                   <img
                     src={hotel.image}
                     alt={hotel.name}
-                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover rounded-xl object-center transition-transform duration-500 group-hover:scale-110"
                   />
                   {hotel.featured && (
                     <Badge className="absolute top-4 left-4 rounded-full bg-accent text-accent-foreground">
