@@ -34,6 +34,6 @@ export default function RootLayout({
       <body className="font-sans antialiased bg-background text-foreground">
         {children}
       </body>
-    </html>
+    </html> 
   );
 }
