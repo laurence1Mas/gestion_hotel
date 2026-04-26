@@ -1,7 +1,6 @@
-"use client";
-
+import React from "react";
 import ListeHotel from "@/components/feature/listeHotel";
 
-export default function HotelsPage() {
+export default function page() {
   return <ListeHotel />;
 }
