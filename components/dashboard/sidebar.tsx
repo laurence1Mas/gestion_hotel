@@ -16,6 +16,7 @@ import {
   History,
   X,
 } from "lucide-react";
+import Image from "next/image";
 
 interface SidebarProps {
   type: "client" | "hotel";
@@ -74,17 +75,19 @@ export function DashboardSidebar({ type, isOpen, onClose }: SidebarProps) {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed top-0 left-0  z-50 h-full w-72 bg-card border-r border-borde flex flex-col transition-transform duration-300 lg:translate-x-0 lg:static lg:z-0",
+          "fixed top-  z-50 h-full w-72 bg-card border-r border-border  flex flex-col transition-transform duration-300 lg:translate-x-0 lg:static lg:z-0",
           isOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-border">
+        <div className="flex items-center justify-between h-16 p-6 border-b border-border">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-              <Hotel className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="font-serif text-xl font-bold">IturiStay</span>
+            <Image
+              src="/secondary_logo.svg"
+              alt="logo zua place"
+              width={120}
+              height={80}
+            />
           </Link>
           <button
             className="lg:hidden p-2 rounded-full hover:bg-muted"
