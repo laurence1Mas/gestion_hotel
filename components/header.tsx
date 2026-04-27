@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
 
-export function Header() {
+export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (

@@ -1,7 +1,5 @@
 "use client";
 
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -52,8 +50,6 @@ const services = [
 export default function ServicesPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
-
       <main className="flex-1">
         {/* HERO */}
         <section className="bg-gradient-to-br from-secondary via-background to-muted py-16">
@@ -182,8 +178,6 @@ export default function ServicesPage() {
           </Link>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }
