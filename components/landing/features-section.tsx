@@ -1,88 +1,83 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  Shield,
-  CreditCard,
-  Clock,
-  Headphones,
-  CheckCircle2,
-  Smartphone,
-} from "lucide-react";
-
-const features = [
-  {
-    icon: <Shield className="w-6 h-6" />,
-    title: "Réservation Sécurisée",
-    description:
-      "Vos données personnelles et financières sont protégées avec les meilleurs standards de sécurité.",
-  },
-  {
-    icon: <CreditCard className="w-6 h-6" />,
-    title: "Paiement Mobile",
-    description:
-      "Payez facilement via Orange Money, M-Pesa ou Airtel Money. Simple et rapide.",
-  },
-  {
-    icon: <Clock className="w-6 h-6" />,
-    title: "Confirmation Instantanée",
-    description:
-      "Recevez votre confirmation de réservation immédiatement par SMS et email.",
-  },
-  {
-    icon: <Headphones className="w-6 h-6" />,
-    title: "Support 24/7",
-    description:
-      "Notre équipe est disponible à tout moment pour vous assister dans vos réservations.",
-  },
-  {
-    icon: <CheckCircle2 className="w-6 h-6" />,
-    title: "Hôtels Vérifiés",
-    description:
-      "Tous nos établissements partenaires sont vérifiés et respectent nos standards de qualité.",
-  },
-  {
-    icon: <Smartphone className="w-6 h-6" />,
-    title: "Accessible Partout",
-    description:
-      "Réservez depuis votre téléphone, tablette ou ordinateur, où que vous soyez.",
-  },
-];
+import { CreditCard, Headset, Search, ShieldCheck } from "lucide-react";
 
 export function FeaturesSection() {
+  const features = [
+    {
+      number: "Hôtels vérifiés",
+      label:
+        "Tous nos hôtels sont sélectionnés et vérifiés pour garantir une qualité fiable et un confort optimal.",
+      icon: ShieldCheck,
+    },
+    {
+      number: "Recherche rapide",
+      label:
+        "Trouvez facilement l’hôtel idéal grâce à un système de recherche rapide et simple à utiliser.",
+      icon: Search,
+    },
+    {
+      number: "Paiement sécurisé",
+      label:
+        "Vos paiements sont protégés par des systèmes sécurisés et fiables pour une tranquillité totale.",
+      icon: CreditCard,
+    },
+    {
+      number: "Support 24/7",
+      label:
+        "Notre équipe est disponible à tout moment pour vous aider avant, pendant et après votre séjour.",
+      icon: Headset,
+    },
+  ];
+
   return (
-    <section id="features" className="py-16 md:py-24 bg-muted/35">
-      <div className="container mx-auto px-4 md:px-6">
-        {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Pourquoi Choisir IturiStay?
+    <section className="relative">
+      {/* IMAGE SECTION */}
+      <div className="relative h-[60vh] w-full">
+        {/* Background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: "url('/hero.jpg')",
+          }}
+        />
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-primary/70" />
+
+        {/* Content */}
+        <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-6">
+          {/* Title */}
+          <h2 className="text-3xl md:text-5xl font-serif font-bold text-center max-w-3xl">
+            Pourquoi choisir notre plateforme ?
           </h2>
-          <p className="text-muted-foreground">
-            Une plateforme conçue pour simplifier vos réservations d&apos;hôtels
-            avec des fonctionnalités adaptées aux besoins locaux.
+
+          {/* Paragraph */}
+          <p className="mt-4 text-center text-white/80 text-sm md:text-base max-w-2xl leading-relaxed">
+            Une expérience de réservation simple, rapide et sécurisée avec des
+            hôtels soigneusement sélectionnés pour votre confort.
           </p>
         </div>
+      </div>
 
-        {/* Features Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {features.map((feature, index) => (
-            <Card
-              key={index}
-              className=" transition-all duration-300 bg-transparent border-none"
-            >
-              <CardContent className="p-6">
-                <div className="w-14 h-14 rounded-sm bg-primary/10 text-primary flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                  {feature.icon}
-                </div>
-                <h3 className="font-semibold text-lg text-foreground mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {feature.description}
+      {/* FLOATING CARDS */}
+      <div className="relative z-20 -mt-12 px-6 md:px-20">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 bg-foreground border border-white/10 py-8 text-white shadow-xl">
+          {features.map((item, index) => {
+            const Icon = item.icon;
+
+            return (
+              <div key={index} className="flex flex-col p-6 items-center gap-4">
+                <Icon className="w-8 h-8 text-primary" />
+
+                <p className="text-lg md:text-2xl font-bold text-center">
+                  {item.number}
                 </p>
-              </CardContent>
-            </Card>
-          ))}
+
+                <p className="text-sm text-white/70 text-center">
+                  {item.label}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

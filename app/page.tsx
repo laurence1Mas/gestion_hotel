@@ -1,9 +1,10 @@
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { HeroSection } from "@/components/landing/hero-section"
-import { HotelsSection } from "@/components/landing/hotels-section"
-import { FeaturesSection } from "@/components/landing/features-section"
-import { CTASection } from "@/components/landing/cta-section"
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
+import { Counters } from "@/components/landing/counters-section";
+import { CTASection } from "@/components/landing/cta-section";
+import { FeaturesSection } from "@/components/landing/features-section";
+import { HeroSection } from "@/components/landing/hero-section";
+import { HotelsSection } from "@/components/landing/hotels-section";
 
 export default function HomePage() {
   return (
@@ -11,11 +12,12 @@ export default function HomePage() {
       <Header />
       <main className="flex-1">
         <HeroSection />
+        <Counters />
         <HotelsSection />
         <FeaturesSection />
         <CTASection />
       </main>
       <Footer />
     </div>
-  )
+  );
 }

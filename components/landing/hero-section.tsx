@@ -13,18 +13,20 @@ export function HeroSection() {
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1600&auto=format&fit=crop')",
+          backgroundImage: "url('/room.jpg')",
         }}
       />
-      {/* Blue Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/60 to-primary/40" />{" "}
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/70" />
+
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 text-center text-white flex flex-col items-center justify-center space-y-6">
         <h1 className="font-serif text-4xl md:text-6xl font-bold leading-tight max-w-3xl">
-          Trouvez le lieu idéal pour votre prochain séjour.
+          Trouvez le <span className="text-primary">lieu idéal</span> pour votre
+          prochain <span className="text-primary">séjour</span>.
         </h1>
 
         <p className="text-lg md:text-xl text-white/80 max-w-2xl">
@@ -32,22 +34,19 @@ export function HeroSection() {
           confort dans un cadre élégant et raffiné.
         </p>
 
-        {/* Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 mt-4">
-          {/* Primary Button */}
+        <div className="flex gap-4 mt-4">
           <Link
             href={`/hotels?city=${searchCity}&date=${checkIn}&guests=${guests}`}
           >
-            <Button className="text-base bg-white text-primary hover:bg-white/90">
+            <Button className="text-base bg-primary text-primary-foreground hover:bg-primary/80">
               Explorer les hôtels
             </Button>
           </Link>
 
-          {/* Secondary Button */}
           <Link href="/contact">
             <Button
               variant="outline"
-              className="text-base border-white text-white hover:bg-white/10 "
+              className="text-base border-primary text-white hover:bg-white/10"
             >
               Nous contacter
             </Button>
