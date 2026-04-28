@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-export function Footer() {
+export default function Footer() {
   return (
     <footer className="bg-foreground text-background">
       <div className="container mx-auto px-4 md:px-6 py-12 md:py-16">

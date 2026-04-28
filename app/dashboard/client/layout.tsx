@@ -25,7 +25,9 @@ export default function ClientDashboardLayout({
           userType="client"
           onMenuClick={() => setSidebarOpen(true)}
         />
-        <main className="flex-1 p-4 md:p-6">{children}</main>
+        <main className="flex-1 p-4 md:p-6 md:w-[80%] md:ml-[20%]">
+          {children}
+        </main>
       </div>
     </div>
   );

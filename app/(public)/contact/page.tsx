@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,8 +32,6 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
-
       <main className="flex-1">
         {/* HERO */}
         <section className="bg-gradient-to-br from-secondary via-background to-muted py-16">
@@ -137,8 +133,6 @@ export default function ContactPage() {
           <Button className="rounded-full">Explorer les hôtels</Button>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }
