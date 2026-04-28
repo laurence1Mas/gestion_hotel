@@ -9,7 +9,6 @@ import { HotelsSection } from "@/components/landing/hotels-section";
 export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
       <main className="flex-1">
         <HeroSection />
         <Counters />
@@ -17,7 +16,6 @@ export default function HomePage() {
         <FeaturesSection />
         <CTASection />
       </main>
-      <Footer />
     </div>
   );
 }

@@ -1,7 +1,5 @@
 "use client";
 
-import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -212,8 +210,6 @@ export default function HotelsPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
-
       <main className="flex-1 bg-background">
         {/* Hero Section */}
         <section className="bg-gradient-to-br from-secondary via-background to-muted py-12 md:py-16">
@@ -494,8 +490,6 @@ export default function HotelsPage() {
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }

@@ -3,8 +3,6 @@
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
-  // DropdownMenuContent,
-  // DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Menu, User, X } from "lucide-react";
@@ -12,7 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-export function Header() {
+export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
