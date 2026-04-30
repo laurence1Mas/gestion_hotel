@@ -1,4 +1,4 @@
-# IturiStay - Application de Gestion des Réservations d'Hôtels
+# Zua Place - Application de Gestion des Réservations d'Hôtels
 
 ## Table des Matières
 
@@ -17,7 +17,7 @@
 
 ## Présentation du Projet
 
-**IturiStay** est une plateforme centralisée de gestion des réservations de chambres d'hôtels pour la province d'Ituri en République Démocratique du Congo.
+**Zua Place** est une plateforme centralisée de gestion des réservations de chambres d'hôtels pour la province d'Ituri en République Démocratique du Congo.
 
 ### Objectifs Principaux
 
@@ -28,11 +28,11 @@
 
 ### Acteurs du Système
 
-| Acteur | Description |
-|--------|-------------|
-| **Client** | Recherche des hôtels, réserve des chambres, paie un acompte |
-| **Hôtel** | Gère son profil, ses chambres et ses réservations |
-| **Administrateur** | Supervise la plateforme (à implémenter) |
+| Acteur             | Description                                                 |
+| ------------------ | ----------------------------------------------------------- |
+| **Client**         | Recherche des hôtels, réserve des chambres, paie un acompte |
+| **Hôtel**          | Gère son profil, ses chambres et ses réservations           |
+| **Administrateur** | Supervise la plateforme (à implémenter)                     |
 
 ---
 
@@ -40,23 +40,23 @@
 
 ### Frontend
 
-| Technologie | Version | Description |
-|-------------|---------|-------------|
-| **Next.js** | 15+ | Framework React avec App Router |
-| **React** | 19+ | Bibliothèque UI |
-| **TypeScript** | 5+ | Typage statique |
-| **Tailwind CSS** | 4.0 | Framework CSS utilitaire |
-| **shadcn/ui** | Latest | Composants UI accessibles |
+| Technologie      | Version | Description                     |
+| ---------------- | ------- | ------------------------------- |
+| **Next.js**      | 15+     | Framework React avec App Router |
+| **React**        | 19+     | Bibliothèque UI                 |
+| **TypeScript**   | 5+      | Typage statique                 |
+| **Tailwind CSS** | 4.0     | Framework CSS utilitaire        |
+| **shadcn/ui**    | Latest  | Composants UI accessibles       |
 
 ### Bibliothèques Additionnelles
 
-| Bibliothèque | Usage |
-|--------------|-------|
-| `lucide-react` | Icônes vectorielles |
-| `date-fns` | Manipulation des dates |
-| `recharts` | Graphiques et visualisations |
-| `class-variance-authority` | Variantes de composants |
-| `clsx` / `tailwind-merge` | Gestion des classes CSS |
+| Bibliothèque               | Usage                        |
+| -------------------------- | ---------------------------- |
+| `lucide-react`             | Icônes vectorielles          |
+| `date-fns`                 | Manipulation des dates       |
+| `recharts`                 | Graphiques et visualisations |
+| `class-variance-authority` | Variantes de composants      |
+| `clsx` / `tailwind-merge`  | Gestion des classes CSS      |
 
 ### Polices
 
@@ -185,6 +185,7 @@
 #### 1. Module Landing (`/app/page.tsx`)
 
 Point d'entrée de l'application avec:
+
 - Recherche d'hôtels (ville, dates, voyageurs)
 - Présentation des hôtels populaires
 - Fonctionnalités de la plateforme
@@ -192,29 +193,31 @@ Point d'entrée de l'application avec:
 
 #### 2. Module Authentification (`/app/auth/`)
 
-| Page | Route | Description |
-|------|-------|-------------|
-| Login | `/auth/login` | Connexion client/hôtel avec onglets |
+| Page     | Route            | Description                                  |
+| -------- | ---------------- | -------------------------------------------- |
+| Login    | `/auth/login`    | Connexion client/hôtel avec onglets          |
 | Register | `/auth/register` | Inscription avec choix de rôle et abonnement |
 
 **Logique d'inscription hôtel:**
+
 ```typescript
 // Types d'abonnement
 const subscriptionPlans = {
   monthly: { price: 25, duration: "mois" },
   quarterly: { price: 60, duration: "trimestre" },
-  yearly: { price: 200, duration: "an" }
-}
+  yearly: { price: 200, duration: "an" },
+};
 ```
 
 #### 3. Module Hôtels (`/app/hotels/`)
 
-| Page | Route | Description |
-|------|-------|-------------|
-| Liste | `/hotels` | Recherche avec filtres |
+| Page   | Route          | Description              |
+| ------ | -------------- | ------------------------ |
+| Liste  | `/hotels`      | Recherche avec filtres   |
 | Détail | `/hotels/[id]` | Informations et chambres |
 
 **Filtres disponibles:**
+
 - Ville (Bunia, Mahagi, Aru, Irumu, Mambasa)
 - Fourchette de prix
 - Équipements (WiFi, Parking, Restaurant, etc.)
@@ -222,25 +225,27 @@ const subscriptionPlans = {
 
 #### 4. Dashboard Client (`/app/dashboard/client/`)
 
-| Page | Route | Description |
-|------|-------|-------------|
-| Accueil | `/dashboard/client` | Statistiques et réservations récentes |
-| Réservations | `/dashboard/client/reservations` | Historique complet |
+| Page         | Route                            | Description                           |
+| ------------ | -------------------------------- | ------------------------------------- |
+| Accueil      | `/dashboard/client`              | Statistiques et réservations récentes |
+| Réservations | `/dashboard/client/reservations` | Historique complet                    |
 
 **Statistiques affichées:**
+
 - Nombre de réservations
 - Hôtels visités
 - Nuits passées
 
 #### 5. Dashboard Hôtel (`/app/dashboard/hotel/`)
 
-| Page | Route | Description |
-|------|-------|-------------|
-| Accueil | `/dashboard/hotel` | Vue d'ensemble |
-| Chambres | `/dashboard/hotel/rooms` | Gestion des chambres |
+| Page         | Route                           | Description          |
+| ------------ | ------------------------------- | -------------------- |
+| Accueil      | `/dashboard/hotel`              | Vue d'ensemble       |
+| Chambres     | `/dashboard/hotel/rooms`        | Gestion des chambres |
 | Réservations | `/dashboard/hotel/reservations` | Gestion des demandes |
 
 **Fonctionnalités:**
+
 - Ajout/modification/suppression de chambres
 - Confirmation/annulation de réservations
 - Statistiques d'occupation
@@ -252,48 +257,48 @@ const subscriptionPlans = {
 ### Statuts de Réservation
 
 ```typescript
-type ReservationStatus = 
-  | "pending"      // En attente de confirmation
-  | "confirmed"    // Confirmée par l'hôtel
-  | "cancelled"    // Annulée
-  | "completed"    // Séjour terminé
+type ReservationStatus =
+  | "pending" // En attente de confirmation
+  | "confirmed" // Confirmée par l'hôtel
+  | "cancelled" // Annulée
+  | "completed"; // Séjour terminé
 ```
 
 ### Statuts de Chambre
 
 ```typescript
-type RoomStatus = 
-  | "available"    // Disponible
-  | "occupied"     // Occupée
-  | "maintenance"  // En maintenance
+type RoomStatus =
+  | "available" // Disponible
+  | "occupied" // Occupée
+  | "maintenance"; // En maintenance
 ```
 
 ### Types de Chambre
 
 ```typescript
-type RoomType = 
-  | "simple"       // Chambre simple
-  | "double"       // Chambre double
-  | "suite"        // Suite
-  | "deluxe"       // Deluxe
-  | "familiale"    // Familiale
+type RoomType =
+  | "simple" // Chambre simple
+  | "double" // Chambre double
+  | "suite" // Suite
+  | "deluxe" // Deluxe
+  | "familiale"; // Familiale
 ```
 
 ### Équipements
 
 ```typescript
 const amenities = [
-  "wifi",          // WiFi gratuit
-  "parking",       // Parking
-  "restaurant",    // Restaurant
-  "pool",          // Piscine
-  "spa",           // Spa
-  "gym",           // Salle de sport
-  "ac",            // Climatisation
-  "tv",            // Télévision
-  "minibar",       // Minibar
-  "room-service"   // Room Service
-]
+  "wifi", // WiFi gratuit
+  "parking", // Parking
+  "restaurant", // Restaurant
+  "pool", // Piscine
+  "spa", // Spa
+  "gym", // Salle de sport
+  "ac", // Climatisation
+  "tv", // Télévision
+  "minibar", // Minibar
+  "room-service", // Room Service
+];
 ```
 
 ---
@@ -305,7 +310,7 @@ const amenities = [
 ```bash
 # Cloner le projet
 git clone <repository-url>
-cd ituristay
+cd Zua Place
 
 # Installer les dépendances
 pnpm install
@@ -316,12 +321,12 @@ pnpm dev
 
 ### Commandes Disponibles
 
-| Commande | Description |
-|----------|-------------|
-| `pnpm dev` | Serveur de développement |
-| `pnpm build` | Build de production |
-| `pnpm start` | Serveur de production |
-| `pnpm lint` | Vérification ESLint |
+| Commande     | Description              |
+| ------------ | ------------------------ |
+| `pnpm dev`   | Serveur de développement |
+| `pnpm build` | Build de production      |
+| `pnpm start` | Serveur de production    |
+| `pnpm lint`  | Vérification ESLint      |
 
 ### Ajouter une Nouvelle Page
 
@@ -385,14 +390,14 @@ import { Badge } from "@/components/ui/badge"
 
 ### Palette de Couleurs
 
-| Token CSS | Usage | Valeur |
-|-----------|-------|--------|
-| `--primary` | Boutons, liens, accents | Vert forêt |
-| `--accent` | Highlights, badges | Or/Ambre |
-| `--background` | Fond de page | Crème clair |
-| `--foreground` | Texte principal | Brun foncé |
-| `--muted` | Fonds secondaires | Beige |
-| `--destructive` | Erreurs, suppressions | Rouge |
+| Token CSS       | Usage                   | Valeur      |
+| --------------- | ----------------------- | ----------- |
+| `--primary`     | Boutons, liens, accents | Vert forêt  |
+| `--accent`      | Highlights, badges      | Or/Ambre    |
+| `--background`  | Fond de page            | Crème clair |
+| `--foreground`  | Texte principal         | Brun foncé  |
+| `--muted`       | Fonds secondaires       | Beige       |
+| `--destructive` | Erreurs, suppressions   | Rouge       |
 
 ### Utilisation des Couleurs
 
@@ -452,22 +457,22 @@ import { Badge } from "@/components/ui/badge"
 ```tsx
 // Mobile-first avec breakpoints
 <div className="
-  grid 
-  grid-cols-1 
-  md:grid-cols-2 
-  lg:grid-cols-3 
-  xl:grid-cols-4 
+  grid
+  grid-cols-1
+  md:grid-cols-2
+  lg:grid-cols-3
+  xl:grid-cols-4
   gap-4 md:gap-6
 ">
 ```
 
-| Breakpoint | Taille | Usage |
-|------------|--------|-------|
-| `sm` | 640px | Téléphones paysage |
-| `md` | 768px | Tablettes |
-| `lg` | 1024px | Laptops |
-| `xl` | 1280px | Desktops |
-| `2xl` | 1536px | Grands écrans |
+| Breakpoint | Taille | Usage              |
+| ---------- | ------ | ------------------ |
+| `sm`       | 640px  | Téléphones paysage |
+| `md`       | 768px  | Tablettes          |
+| `lg`       | 1024px | Laptops            |
+| `xl`       | 1280px | Desktops           |
+| `2xl`      | 1536px | Grands écrans      |
 
 ---
 
@@ -479,70 +484,70 @@ import { Badge } from "@/components/ui/badge"
 // types/index.ts (à créer)
 
 export interface User {
-  id: string
-  email: string
-  name: string
-  phone: string
-  role: "client" | "hotel" | "admin"
-  createdAt: Date
+  id: string;
+  email: string;
+  name: string;
+  phone: string;
+  role: "client" | "hotel" | "admin";
+  createdAt: Date;
 }
 
 export interface Hotel {
-  id: string
-  userId: string
-  name: string
-  description: string
-  address: string
-  city: string
-  phone: string
-  email: string
-  images: string[]
-  amenities: string[]
-  rating: number
-  subscriptionStatus: "active" | "expired" | "pending"
-  subscriptionPlan: "monthly" | "quarterly" | "yearly"
-  subscriptionEndDate: Date
-  createdAt: Date
+  id: string;
+  userId: string;
+  name: string;
+  description: string;
+  address: string;
+  city: string;
+  phone: string;
+  email: string;
+  images: string[];
+  amenities: string[];
+  rating: number;
+  subscriptionStatus: "active" | "expired" | "pending";
+  subscriptionPlan: "monthly" | "quarterly" | "yearly";
+  subscriptionEndDate: Date;
+  createdAt: Date;
 }
 
 export interface Room {
-  id: string
-  hotelId: string
-  number: string
-  type: "simple" | "double" | "suite" | "deluxe" | "familiale"
-  description: string
-  price: number
-  capacity: number
-  amenities: string[]
-  images: string[]
-  status: "available" | "occupied" | "maintenance"
+  id: string;
+  hotelId: string;
+  number: string;
+  type: "simple" | "double" | "suite" | "deluxe" | "familiale";
+  description: string;
+  price: number;
+  capacity: number;
+  amenities: string[];
+  images: string[];
+  status: "available" | "occupied" | "maintenance";
 }
 
 export interface Reservation {
-  id: string
-  clientId: string
-  hotelId: string
-  roomId: string
-  checkIn: Date
-  checkOut: Date
-  guests: number
-  totalPrice: number
-  depositAmount: number
-  depositPaid: boolean
-  status: "pending" | "confirmed" | "cancelled" | "completed"
-  paymentMethod: "orange_money" | "mpesa" | "airtel_money"
-  createdAt: Date
+  id: string;
+  clientId: string;
+  hotelId: string;
+  roomId: string;
+  checkIn: Date;
+  checkOut: Date;
+  guests: number;
+  totalPrice: number;
+  depositAmount: number;
+  depositPaid: boolean;
+  status: "pending" | "confirmed" | "cancelled" | "completed";
+  paymentMethod: "orange_money" | "mpesa" | "airtel_money";
+  createdAt: Date;
 }
 
 export interface Subscription {
-  id: string
-  hotelId: string
-  plan: "monthly" | "quarterly" | "yearly"
-  price: number
-  startDate: Date
-  endDate: Date
-  status: "active" | "expired" | "cancelled"
-  paymentMethod: "orange_money" | "mpesa" | "airtel_money"
+  id: string;
+  hotelId: string;
+  plan: "monthly" | "quarterly" | "yearly";
+  price: number;
+  startDate: Date;
+  endDate: Date;
+  status: "active" | "expired" | "cancelled";
+  paymentMethod: "orange_money" | "mpesa" | "airtel_money";
 }
 ```
 
@@ -552,14 +557,14 @@ Les données sont actuellement en dur dans les composants. Elles devront être r
 
 **Localisation des données mock:**
 
-| Fichier | Données |
-|---------|---------|
-| `/app/hotels/page.tsx` | Liste des hôtels |
-| `/app/hotels/[id]/page.tsx` | Détails hôtel et chambres |
-| `/app/dashboard/client/page.tsx` | Réservations client |
-| `/app/dashboard/hotel/page.tsx` | Statistiques hôtel |
-| `/app/dashboard/hotel/rooms/page.tsx` | Chambres de l'hôtel |
-| `/components/landing/hotels-section.tsx` | Hôtels populaires |
+| Fichier                                  | Données                   |
+| ---------------------------------------- | ------------------------- |
+| `/app/hotels/page.tsx`                   | Liste des hôtels          |
+| `/app/hotels/[id]/page.tsx`              | Détails hôtel et chambres |
+| `/app/dashboard/client/page.tsx`         | Réservations client       |
+| `/app/dashboard/hotel/page.tsx`          | Statistiques hôtel        |
+| `/app/dashboard/hotel/rooms/page.tsx`    | Chambres de l'hôtel       |
+| `/components/landing/hotels-section.tsx` | Hôtels populaires         |
 
 ---
 
@@ -604,44 +609,47 @@ Créer dans `/app/api/`:
 
 ```typescript
 // /app/api/hotels/route.ts
-import { NextResponse } from "next/server"
+import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url)
-  const city = searchParams.get("city")
-  
+  const { searchParams } = new URL(request.url);
+  const city = searchParams.get("city");
+
   // TODO: Remplacer par requête DB
   const hotels = await db.hotel.findMany({
     where: city ? { city } : undefined,
-    include: { rooms: true }
-  })
-  
-  return NextResponse.json(hotels)
+    include: { rooms: true },
+  });
+
+  return NextResponse.json(hotels);
 }
 
 export async function POST(request: Request) {
-  const body = await request.json()
-  
+  const body = await request.json();
+
   // TODO: Validation et création
-  const hotel = await db.hotel.create({ data: body })
-  
-  return NextResponse.json(hotel, { status: 201 })
+  const hotel = await db.hotel.create({ data: body });
+
+  return NextResponse.json(hotel, { status: 201 });
 }
 ```
 
 ### Base de Données Recommandée
 
 **Option 1: Supabase (Recommandé)**
+
 - PostgreSQL hébergé
 - Authentification intégrée
 - Row Level Security
 - API REST automatique
 
 **Option 2: Neon**
+
 - PostgreSQL serverless
 - Scaling automatique
 
 **Option 3: PlanetScale**
+
 - MySQL serverless
 - Branching de base de données
 
@@ -794,6 +802,7 @@ enum PaymentMethod {
 ### Intégration Paiement Mobile
 
 **Providers à intégrer:**
+
 - Orange Money API
 - M-Pesa (Vodacom)
 - Airtel Money
@@ -802,8 +811,8 @@ enum PaymentMethod {
 // lib/payments/index.ts (à créer)
 
 interface PaymentProvider {
-  initiatePayment(amount: number, phone: string): Promise<PaymentResult>
-  checkStatus(transactionId: string): Promise<PaymentStatus>
+  initiatePayment(amount: number, phone: string): Promise<PaymentResult>;
+  checkStatus(transactionId: string): Promise<PaymentStatus>;
 }
 
 // Implémenter pour chaque provider
@@ -915,4 +924,4 @@ Pour toute question technique, contacter l'équipe de développement.
 
 ---
 
-*Dernière mise à jour: Avril 2026*
+_Dernière mise à jour: Avril 2026_
