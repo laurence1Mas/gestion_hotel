@@ -1,42 +1,75 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { useParams, useRouter } from "next/navigation"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { MapPin, Star, Wifi, Car, Coffee, Phone, Mail, ArrowLeft, Users, BedDouble, Calendar, Check, Tv, Wind, ChevronLeft, ChevronRight} from "lucide-react"
-import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger,} from "@/components/ui/dialog"
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select"
+import { useState } from "react";
+import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
+// import Header from "@/components/header";
+// import Footer from "@/components/footer";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import {
+  MapPin,
+  Star,
+  Wifi,
+  Car,
+  Coffee,
+  Phone,
+  Mail,
+  ArrowLeft,
+  Users,
+  BedDouble,
+  Calendar,
+  Check,
+  Tv,
+  Wind,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 // Mock data - in production this would come from an API
-const hotelsData: Record<string, {
-  id: number
-  name: string
-  city: string
-  address: string
-  rating: number
-  reviews: number
-  description: string
-  phone: string
-  email: string
-  images: string[]
-  amenities: string[]
-  rooms: {
-    id: number
-    type: string
-    price: number
-    capacity: number
-    description: string
-    amenities: string[]
-    image: string
-    available: boolean
-  }[]
-}> = {
+const hotelsData: Record<
+  string,
+  {
+    id: number;
+    name: string;
+    city: string;
+    address: string;
+    rating: number;
+    reviews: number;
+    description: string;
+    phone: string;
+    email: string;
+    images: string[];
+    amenities: string[];
+    rooms: {
+      id: number;
+      type: string;
+      price: number;
+      capacity: number;
+      description: string;
+      amenities: string[];
+      image: string;
+      available: boolean;
+    }[];
+  }
+> = {
   "1": {
     id: 1,
     name: "Hôtel Ituri Palace",
@@ -44,7 +77,8 @@ const hotelsData: Record<string, {
     address: "Avenue Principale, Centre-Ville, Bunia",
     rating: 4.8,
     reviews: 124,
-    description: "L'Hôtel Ituri Palace est le premier établissement de luxe de Bunia, offrant une expérience hôtelière exceptionnelle au coeur de la province de l'Ituri. Notre établissement combine élégance moderne et hospitalité africaine authentique pour vous garantir un séjour inoubliable. Profitez de nos chambres spacieuses, de notre restaurant gastronomique et de notre service attentionné.",
+    description:
+      "L'Hôtel Ituri Palace est le premier établissement de luxe de Bunia, offrant une expérience hôtelière exceptionnelle au coeur de la province de l'Ituri. Notre établissement combine élégance moderne et hospitalité africaine authentique pour vous garantir un séjour inoubliable. Profitez de nos chambres spacieuses, de notre restaurant gastronomique et de notre service attentionné.",
     phone: "+243 99 123 4567",
     email: "contact@ituripalace.cd",
     images: [
@@ -60,9 +94,11 @@ const hotelsData: Record<string, {
         type: "Chambre Simple",
         price: 45,
         capacity: 1,
-        description: "Chambre confortable pour voyageur solo avec lit simple et salle de bain privée.",
+        description:
+          "Chambre confortable pour voyageur solo avec lit simple et salle de bain privée.",
         amenities: ["wifi", "tv", "ac"],
-        image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=300&fit=crop",
+        image:
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=300&fit=crop",
         available: true,
       },
       {
@@ -70,9 +106,11 @@ const hotelsData: Record<string, {
         type: "Chambre Double",
         price: 65,
         capacity: 2,
-        description: "Chambre spacieuse avec lit double king size, coin salon et vue sur la ville.",
+        description:
+          "Chambre spacieuse avec lit double king size, coin salon et vue sur la ville.",
         amenities: ["wifi", "tv", "ac"],
-        image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop",
+        image:
+          "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop",
         available: true,
       },
       {
@@ -80,9 +118,11 @@ const hotelsData: Record<string, {
         type: "Suite Deluxe",
         price: 85,
         capacity: 2,
-        description: "Suite luxueuse avec salon séparé, lit king size, minibar et vue panoramique.",
+        description:
+          "Suite luxueuse avec salon séparé, lit king size, minibar et vue panoramique.",
         amenities: ["wifi", "tv", "ac", "parking"],
-        image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&h=300&fit=crop",
+        image:
+          "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&h=300&fit=crop",
         available: true,
       },
       {
@@ -90,14 +130,16 @@ const hotelsData: Record<string, {
         type: "Suite Premium",
         price: 120,
         capacity: 4,
-        description: "Notre meilleure suite avec deux chambres, jacuzzi, service VIP et petit-déjeuner inclus.",
+        description:
+          "Notre meilleure suite avec deux chambres, jacuzzi, service VIP et petit-déjeuner inclus.",
         amenities: ["wifi", "tv", "ac", "parking", "restaurant"],
-        image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop",
+        image:
+          "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop",
         available: false,
       },
     ],
   },
-}
+};
 
 // Add other hotels with similar structure
 for (let i = 2; i <= 8; i++) {
@@ -105,48 +147,52 @@ for (let i = 2; i <= 8; i++) {
     ...hotelsData["1"],
     id: i,
     name: `Hôtel ${i}`,
-  }
+  };
 }
 
-const amenityDetails: Record<string, { label: string; icon: React.ReactNode }> = {
-  wifi: { label: "WiFi Gratuit", icon: <Wifi className="w-5 h-5" /> },
-  parking: { label: "Parking", icon: <Car className="w-5 h-5" /> },
-  restaurant: { label: "Restaurant", icon: <Coffee className="w-5 h-5" /> },
-  tv: { label: "TV", icon: <Tv className="w-5 h-5" /> },
-  ac: { label: "Climatisation", icon: <Wind className="w-5 h-5" /> },
-}
+const amenityDetails: Record<string, { label: string; icon: React.ReactNode }> =
+  {
+    wifi: { label: "WiFi Gratuit", icon: <Wifi className="w-5 h-5" /> },
+    parking: { label: "Parking", icon: <Car className="w-5 h-5" /> },
+    restaurant: { label: "Restaurant", icon: <Coffee className="w-5 h-5" /> },
+    tv: { label: "TV", icon: <Tv className="w-5 h-5" /> },
+    ac: { label: "Climatisation", icon: <Wind className="w-5 h-5" /> },
+  };
 
 export default function HotelDetailPage() {
-  const params = useParams()
-  const router = useRouter()
-  const hotelId = params.id as string
-  const hotel = hotelsData[hotelId] || hotelsData["1"]
-  
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [selectedRoom, setSelectedRoom] = useState<typeof hotel.rooms[0] | null>(null)
+  const params = useParams();
+  const router = useRouter();
+  const hotelId = params.id as string;
+  const hotel = hotelsData[hotelId] || hotelsData["1"];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [selectedRoom, setSelectedRoom] = useState<
+    (typeof hotel.rooms)[0] | null
+  >(null);
   const [bookingData, setBookingData] = useState({
     checkIn: "",
     checkOut: "",
     guests: "1",
-  })
+  });
 
   const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % hotel.images.length)
-  }
+    setCurrentImageIndex((prev) => (prev + 1) % hotel.images.length);
+  };
 
   const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + hotel.images.length) % hotel.images.length)
-  }
+    setCurrentImageIndex(
+      (prev) => (prev - 1 + hotel.images.length) % hotel.images.length,
+    );
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
-      
+
       <main className="flex-1 bg-background">
         {/* Back Button */}
         <div className="container mx-auto px-4 md:px-6 py-4">
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             className="rounded-full"
             onClick={() => router.back()}
           >
@@ -159,7 +205,7 @@ export default function HotelDetailPage() {
         <section className="container mx-auto px-4 md:px-6 pb-8">
           <div className="relative rounded-3xl overflow-hidden">
             <div className="aspect-[16/9] md:aspect-[21/9]">
-              <img 
+              <img
                 src={hotel.images[currentImageIndex]}
                 alt={`${hotel.name} - Image ${currentImageIndex + 1}`}
                 className="w-full h-full object-cover object-center transition-all duration-500"
@@ -183,7 +229,9 @@ export default function HotelDetailPage() {
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
                   className={`w-2 h-2 rounded-full transition-colors ${
-                    index === currentImageIndex ? "bg-background" : "bg-background/50"
+                    index === currentImageIndex
+                      ? "bg-background"
+                      : "bg-background/50"
                   }`}
                 />
               ))}
@@ -226,28 +274,37 @@ export default function HotelDetailPage() {
 
               {/* Équipements */}
               <div className="space-y-4">
-                <h2 className="font-serif text-xl font-semibold">Équipements</h2>
+                <h2 className="font-serif text-xl font-semibold">
+                  Équipements
+                </h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                   {hotel.amenities.map((amenity) => {
-                    const detail = amenityDetails[amenity]
+                    const detail = amenityDetails[amenity];
                     return (
-                      <div key={amenity} className="flex items-center gap-3 p-3 rounded-xl bg-muted/50">
+                      <div
+                        key={amenity}
+                        className="flex items-center gap-3 p-3 rounded-xl bg-muted/50"
+                      >
                         <div className="text-primary">{detail.icon}</div>
-                        <span className="text-sm font-medium">{detail.label}</span>
+                        <span className="text-sm font-medium">
+                          {detail.label}
+                        </span>
                       </div>
-                    )
+                    );
                   })}
                 </div>
               </div>
 
               {/* Rooms */}
               <div className="space-y-4">
-                <h2 className="font-serif text-xl font-semibold">Nos Chambres</h2>
+                <h2 className="font-serif text-xl font-semibold">
+                  Nos Chambres
+                </h2>
                 <div className="grid sm:grid-cols-2 gap-4">
                   {hotel.rooms.map((room) => (
                     <Card key={room.id} className="rounded-2xl overflow-hidden">
                       <div className="relative h-40 overflow-hidden">
-                        <img 
+                        <img
                           src={room.image}
                           alt={room.type}
                           className="w-full h-full object-cover object-center"
@@ -263,8 +320,12 @@ export default function HotelDetailPage() {
                             </div>
                           </div>
                           <div className="text-right">
-                            <p className="font-serif text-xl font-bold text-primary">${room.price}</p>
-                            <p className="text-xs text-muted-foreground">/nuit</p>
+                            <p className="font-serif text-xl font-bold text-primary">
+                              ${room.price}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              /nuit
+                            </p>
                           </div>
                         </div>
                         <p className="text-sm text-muted-foreground line-clamp-2">
@@ -283,8 +344,8 @@ export default function HotelDetailPage() {
                         </div>
                         <Dialog>
                           <DialogTrigger asChild>
-                            <Button 
-                              className="w-full rounded-full bg-primary" 
+                            <Button
+                              className="w-full rounded-full bg-primary"
                               disabled={!room.available}
                               onClick={() => setSelectedRoom(room)}
                             >
@@ -293,7 +354,9 @@ export default function HotelDetailPage() {
                           </DialogTrigger>
                           <DialogContent className="sm:max-w-md">
                             <DialogHeader>
-                              <DialogTitle className="font-serif">Réserver - {room.type}</DialogTitle>
+                              <DialogTitle className="font-serif">
+                                Réserver - {room.type}
+                              </DialogTitle>
                               <DialogDescription>
                                 {hotel.name}
                               </DialogDescription>
@@ -301,37 +364,61 @@ export default function HotelDetailPage() {
                             <div className="space-y-4 py-4">
                               <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                  <label className="text-sm font-medium">Check-in</label>
+                                  <label className="text-sm font-medium">
+                                    Check-in
+                                  </label>
                                   <Input
                                     type="date"
                                     className="rounded-full"
                                     value={bookingData.checkIn}
-                                    onChange={(e) => setBookingData({...bookingData, checkIn: e.target.value})}
+                                    onChange={(e) =>
+                                      setBookingData({
+                                        ...bookingData,
+                                        checkIn: e.target.value,
+                                      })
+                                    }
                                   />
                                 </div>
                                 <div className="space-y-2">
-                                  <label className="text-sm font-medium">Check-out</label>
+                                  <label className="text-sm font-medium">
+                                    Check-out
+                                  </label>
                                   <Input
                                     type="date"
                                     className="rounded-full"
                                     value={bookingData.checkOut}
-                                    onChange={(e) => setBookingData({...bookingData, checkOut: e.target.value})}
+                                    onChange={(e) =>
+                                      setBookingData({
+                                        ...bookingData,
+                                        checkOut: e.target.value,
+                                      })
+                                    }
                                   />
                                 </div>
                               </div>
                               <div className="space-y-2">
-                                <label className="text-sm font-medium">Voyageurs</label>
-                                <Select 
-                                  value={bookingData.guests} 
-                                  onValueChange={(value) => setBookingData({...bookingData, guests: value})}
+                                <label className="text-sm font-medium">
+                                  Voyageurs
+                                </label>
+                                <Select
+                                  value={bookingData.guests}
+                                  onValueChange={(value) =>
+                                    setBookingData({
+                                      ...bookingData,
+                                      guests: value,
+                                    })
+                                  }
                                 >
                                   <SelectTrigger className="rounded-full">
                                     <SelectValue />
                                   </SelectTrigger>
                                   <SelectContent>
                                     {[...Array(room.capacity)].map((_, i) => (
-                                      <SelectItem key={i+1} value={(i+1).toString()}>
-                                        {i+1} personne(s)
+                                      <SelectItem
+                                        key={i + 1}
+                                        value={(i + 1).toString()}
+                                      >
+                                        {i + 1} personne(s)
                                       </SelectItem>
                                     ))}
                                   </SelectContent>
@@ -344,17 +431,20 @@ export default function HotelDetailPage() {
                                 </div>
                                 <div className="flex justify-between text-sm">
                                   <span>Acompte (40%)</span>
-                                  <span className="font-semibold text-primary">${Math.round(room.price * 0.4)}</span>
+                                  <span className="font-semibold text-primary">
+                                    ${Math.round(room.price * 0.4)}
+                                  </span>
                                 </div>
                               </div>
-                              <Button 
-                                className="w-full rounded-full bg-primary" 
+                              <Button
+                                className="w-full rounded-full bg-primary"
                                 onClick={() => router.push("/auth/login")}
                               >
                                 Continuer la Réservation
                               </Button>
                               <p className="text-xs text-center text-muted-foreground">
-                                Vous devez être connecté pour finaliser la réservation
+                                Vous devez être connecté pour finaliser la
+                                réservation
                               </p>
                             </div>
                           </DialogContent>
@@ -410,7 +500,6 @@ export default function HotelDetailPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </div>
-  )
+  );
 }
