@@ -35,6 +35,6 @@ export default function RootLayout({
       <body className="font-sans antialiased bg-background text-foreground flex min-h-screen flex-col">
         <main className="flex-1">{children}</main>
       </body>
-    </html>
+    </html> 
   );
 }
