@@ -115,9 +115,9 @@ export function HotelsSection() {
       <div className="container mx-auto px-4 md:px-6 space-y-12">
         {/* HEADER */}
         <div className="text-center space-y-4">
-          <h3 className="font-serif text-3xl md:text-5xl font-bold leading-tight max-w-3xl mx-auto">
+          <h2 className="font-serif text-3xl md:text-5xl font-bold leading-tight max-w-3xl mx-auto">
             Prêt à trouver votre prochain séjour idéal ?
-          </h3>
+          </h2>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
             Rejoignez notre plateforme et accédez à des centaines d’hôtels
             soigneusement sélectionnés pour votre confort.
