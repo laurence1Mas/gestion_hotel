@@ -19,9 +19,9 @@ export function Counters() {
 
             return (
               <div key={index} className="flex flex-col items-center gap-6">
-                <Icon className="w-10 h-10 text-primary" />
+                <Icon className="w-8 h-8 text-primary" />
 
-                <p className="text-2xl md:text-5xl font-bold">{item.number}</p>
+                <p className="text-2xl md:text-4xl font-bold">{item.number}</p>
 
                 <p className="text-lg text-white/70 text-center">
                   {item.label}
