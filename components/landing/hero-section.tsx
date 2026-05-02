@@ -34,11 +34,11 @@ export function HeroSection() {
           confort dans un cadre élégant et raffiné.
         </p>
 
-        <div className="flex gap-4 mt-4">
+        <div className="flex flex-col sm:flex-row gap-4 mt-4 ">
           <Link
             href={`/hotels?city=${searchCity}&date=${checkIn}&guests=${guests}`}
           >
-            <Button className="text-base bg-primary text-primary-foreground hover:bg-primary/80">
+            <Button className="text-base bg-primary text-primary-foreground hover:bg-primary/80 w-full sm:w-auto">
               Explorer les hôtels
             </Button>
           </Link>
@@ -46,7 +46,7 @@ export function HeroSection() {
           <Link href="/contact">
             <Button
               variant="outline"
-              className="text-base border-primary text-white hover:bg-white/10"
+              className="text-base border-primary w-full sm:w-auto text-white hover:bg-white/10"
             >
               Nous contacter
             </Button>

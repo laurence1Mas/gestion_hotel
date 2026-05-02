@@ -29,7 +29,7 @@ export function FeaturesSection() {
   ];
 
   return (
-    <section className="relative">
+    <section className="relative w-full">
       {/* IMAGE SECTION */}
       <div className="relative h-[60vh] w-full">
         {/* Background image */}

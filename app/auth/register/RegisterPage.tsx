@@ -121,7 +121,9 @@ export default function RegisterPage() {
                       <Input type="password" required />
                     </div>
 
-                    <Button type="submit">Continuer</Button>
+                    <Button type="submit" className="w-full">
+                      Continuer
+                    </Button>
                   </form>
                 </TabsContent>
                 {/* HOTEL */}
@@ -140,7 +142,9 @@ export default function RegisterPage() {
                       <Input type="password" required />
                     </div>
 
-                    <Button type="submit">Continuer</Button>
+                    <Button type="submit" className="w-full">
+                      Continuer
+                    </Button>
                   </form>
                 </TabsContent>{" "}
               </Tabs>
