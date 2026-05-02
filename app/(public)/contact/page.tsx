@@ -1,13 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { useState } from "react";
 
 export default function ContactPage() {
   const [form, setForm] = useState({
@@ -34,8 +32,6 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
-
       <main className="flex-1">
         {/* HERO */}
         <section className="bg-gradient-to-br from-secondary via-background to-muted py-16">
@@ -79,7 +75,7 @@ export default function ContactPage() {
             </div>
 
             {/* FORMULAIRE */}
-            <Card className="rounded-2xl">
+            <Card>
               <CardContent className="p-6">
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
@@ -114,7 +110,7 @@ export default function ContactPage() {
                     />
                   </div>
 
-                  <Button type="submit" className="w-full rounded-full">
+                  <Button type="submit" className="w-full">
                     <Send className="w-4 h-4 mr-2" />
                     Envoyer le message
                   </Button>
@@ -134,11 +130,9 @@ export default function ContactPage() {
             Consultez nos hôtels disponibles et trouvez votre séjour idéal.
           </p>
 
-          <Button className="rounded-full">Explorer les hôtels</Button>
+          <Button>Explorer les hôtels</Button>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }
