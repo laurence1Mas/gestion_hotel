@@ -3,8 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-// import Header from "@/components/header";
-// import Footer from "@/components/footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -186,44 +184,44 @@ export default function HotelDetailPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex flex-col min-h-screen">
 
       <main className="flex-1 bg-background">
         {/* Back Button */}
-        <div className="container mx-auto px-4 md:px-6 py-4">
+        <div className="mx-auto px-4 md:px-6 py-4 container">
           <Button
             variant="ghost"
             className="rounded-full"
             onClick={() => router.back()}
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
+            <ArrowLeft className="mr-2 w-4 h-4" />
             Retour
           </Button>
         </div>
 
         {/* Image Gallery */}
-        <section className="container mx-auto px-4 md:px-6 pb-8">
+        <section className="mx-auto px-4 md:px-6 pb-8 container">
           <div className="relative rounded-3xl overflow-hidden">
             <div className="aspect-[16/9] md:aspect-[21/9]">
               <img
                 src={hotel.images[currentImageIndex]}
                 alt={`${hotel.name} - Image ${currentImageIndex + 1}`}
-                className="w-full h-full object-cover object-center transition-all duration-500"
+                className="w-full h-full object-center object-cover transition-all duration-500"
               />
             </div>
             <button
               onClick={prevImage}
-              className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur flex items-center justify-center hover:bg-background transition-colors"
+              className="top-1/2 left-4 absolute flex justify-center items-center bg-background/80 hover:bg-background backdrop-blur rounded-full w-10 h-10 transition-colors -translate-y-1/2"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={nextImage}
-              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur flex items-center justify-center hover:bg-background transition-colors"
+              className="top-1/2 right-4 absolute flex justify-center items-center bg-background/80 hover:bg-background backdrop-blur rounded-full w-10 h-10 transition-colors -translate-y-1/2"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            <div className="bottom-4 left-1/2 absolute flex gap-2 -translate-x-1/2">
               {hotel.images.map((_, index) => (
                 <button
                   key={index}
@@ -240,22 +238,22 @@ export default function HotelDetailPage() {
         </section>
 
         {/* Hotel Info */}
-        <section className="container mx-auto px-4 md:px-6 pb-12">
-          <div className="grid lg:grid-cols-3 gap-8">
+        <section className="mx-auto px-4 md:px-6 pb-12 container">
+          <div className="gap-8 grid lg:grid-cols-3">
             {/* Left: Hotel Details */}
-            <div className="lg:col-span-2 space-y-8">
+            <div className="space-y-8 lg:col-span-2">
               {/* Header */}
               <div className="space-y-4">
                 <div className="flex flex-wrap items-center gap-3">
-                  <Badge className="rounded-full bg-primary/10 text-primary">
-                    <Star className="w-3 h-3 mr-1 fill-primary" />
+                  <Badge className="bg-primary/10 rounded-full text-primary">
+                    <Star className="fill-primary mr-1 w-3 h-3" />
                     {hotel.rating} ({hotel.reviews} avis)
                   </Badge>
                   <Badge variant="secondary" className="rounded-full">
                     {hotel.rooms.length} chambres
                   </Badge>
                 </div>
-                <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">
+                <h1 className="font-serif font-bold text-foreground text-3xl md:text-4xl">
                   {hotel.name}
                 </h1>
                 <div className="flex items-center gap-2 text-muted-foreground">
@@ -266,7 +264,7 @@ export default function HotelDetailPage() {
 
               {/* Description */}
               <div className="space-y-4">
-                <h2 className="font-serif text-xl font-semibold">À propos</h2>
+                <h2 className="font-serif font-semibold text-xl">À propos</h2>
                 <p className="text-muted-foreground leading-relaxed">
                   {hotel.description}
                 </p>
@@ -274,19 +272,19 @@ export default function HotelDetailPage() {
 
               {/* Équipements */}
               <div className="space-y-4">
-                <h2 className="font-serif text-xl font-semibold">
+                <h2 className="font-serif font-semibold text-xl">
                   Équipements
                 </h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <div className="gap-4 grid grid-cols-2 sm:grid-cols-3">
                   {hotel.amenities.map((amenity) => {
                     const detail = amenityDetails[amenity];
                     return (
                       <div
                         key={amenity}
-                        className="flex items-center gap-3 p-3 rounded-xl bg-muted/50"
+                        className="flex items-center gap-3 bg-muted/50 p-3 rounded-xl"
                       >
                         <div className="text-primary">{detail.icon}</div>
-                        <span className="text-sm font-medium">
+                        <span className="font-medium text-sm">
                           {detail.label}
                         </span>
                       </div>
@@ -297,45 +295,45 @@ export default function HotelDetailPage() {
 
               {/* Rooms */}
               <div className="space-y-4">
-                <h2 className="font-serif text-xl font-semibold">
+                <h2 className="font-serif font-semibold text-xl">
                   Nos Chambres
                 </h2>
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="gap-4 grid sm:grid-cols-2">
                   {hotel.rooms.map((room) => (
                     <Card key={room.id} className="rounded-2xl overflow-hidden">
                       <div className="relative h-40 overflow-hidden">
                         <img
                           src={room.image}
                           alt={room.type}
-                          className="w-full h-full object-cover object-center"
+                          className="w-full h-full object-center object-cover"
                         />
                       </div>
-                      <CardContent className="p-4 space-y-3">
-                        <div className="flex items-start justify-between">
+                      <CardContent className="space-y-3 p-4">
+                        <div className="flex justify-between items-start">
                           <div>
                             <h3 className="font-semibold">{room.type}</h3>
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <div className="flex items-center gap-2 text-muted-foreground text-sm">
                               <Users className="w-3 h-3" />
                               <span>{room.capacity} personne(s)</span>
                             </div>
                           </div>
                           <div className="text-right">
-                            <p className="font-serif text-xl font-bold text-primary">
+                            <p className="font-serif font-bold text-primary text-xl">
                               ${room.price}
                             </p>
-                            <p className="text-xs text-muted-foreground">
+                            <p className="text-muted-foreground text-xs">
                               /nuit
                             </p>
                           </div>
                         </div>
-                        <p className="text-sm text-muted-foreground line-clamp-2">
+                        <p className="text-muted-foreground text-sm line-clamp-2">
                           {room.description}
                         </p>
                         <div className="flex gap-1">
                           {room.amenities.map((amenity) => (
                             <div
                               key={amenity}
-                              className="w-7 h-7 rounded-full bg-muted flex items-center justify-center text-muted-foreground"
+                              className="flex justify-center items-center bg-muted rounded-full w-7 h-7 text-muted-foreground"
                               title={amenityDetails[amenity]?.label}
                             >
                               {amenityDetails[amenity]?.icon}
@@ -345,7 +343,7 @@ export default function HotelDetailPage() {
                         <Dialog>
                           <DialogTrigger asChild>
                             <Button
-                              className="w-full rounded-full bg-primary"
+                              className="bg-primary rounded-full w-full"
                               disabled={!room.available}
                               onClick={() => setSelectedRoom(room)}
                             >
@@ -362,9 +360,9 @@ export default function HotelDetailPage() {
                               </DialogDescription>
                             </DialogHeader>
                             <div className="space-y-4 py-4">
-                              <div className="grid grid-cols-2 gap-4">
+                              <div className="gap-4 grid grid-cols-2">
                                 <div className="space-y-2">
-                                  <label className="text-sm font-medium">
+                                  <label className="font-medium text-sm">
                                     Check-in
                                   </label>
                                   <Input
@@ -380,7 +378,7 @@ export default function HotelDetailPage() {
                                   />
                                 </div>
                                 <div className="space-y-2">
-                                  <label className="text-sm font-medium">
+                                  <label className="font-medium text-sm">
                                     Check-out
                                   </label>
                                   <Input
@@ -397,7 +395,7 @@ export default function HotelDetailPage() {
                                 </div>
                               </div>
                               <div className="space-y-2">
-                                <label className="text-sm font-medium">
+                                <label className="font-medium text-sm">
                                   Voyageurs
                                 </label>
                                 <Select
@@ -424,7 +422,7 @@ export default function HotelDetailPage() {
                                   </SelectContent>
                                 </Select>
                               </div>
-                              <div className="p-4 rounded-xl bg-muted space-y-2">
+                              <div className="space-y-2 bg-muted p-4 rounded-xl">
                                 <div className="flex justify-between text-sm">
                                   <span>Prix par nuit</span>
                                   <span>${room.price}</span>
@@ -437,12 +435,12 @@ export default function HotelDetailPage() {
                                 </div>
                               </div>
                               <Button
-                                className="w-full rounded-full bg-primary"
+                                className="bg-primary rounded-full w-full"
                                 onClick={() => router.push("/auth/login")}
                               >
                                 Continuer la Réservation
                               </Button>
-                              <p className="text-xs text-center text-muted-foreground">
+                              <p className="text-muted-foreground text-xs text-center">
                                 Vous devez être connecté pour finaliser la
                                 réservation
                               </p>
@@ -458,40 +456,40 @@ export default function HotelDetailPage() {
 
             {/* Right: Contact Card */}
             <div className="space-y-6">
-              <Card className="rounded-2xl sticky top-24">
+              <Card className="top-24 sticky rounded-2xl">
                 <CardHeader>
                   <CardTitle className="font-serif">Contact</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                    <div className="flex justify-center items-center bg-primary/10 rounded-full w-10 h-10">
                       <Phone className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">Téléphone</p>
+                      <p className="text-muted-foreground text-sm">Téléphone</p>
                       <p className="font-medium">{hotel.phone}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                    <div className="flex justify-center items-center bg-primary/10 rounded-full w-10 h-10">
                       <Mail className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">Email</p>
+                      <p className="text-muted-foreground text-sm">Email</p>
                       <p className="font-medium">{hotel.email}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                    <div className="flex justify-center items-center bg-primary/10 rounded-full w-10 h-10">
                       <MapPin className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">Adresse</p>
+                      <p className="text-muted-foreground text-sm">Adresse</p>
                       <p className="font-medium">{hotel.address}</p>
                     </div>
                   </div>
-                  <Button className="w-full rounded-full bg-primary mt-4">
-                    <Phone className="w-4 h-4 mr-2" />
+                  <Button className="bg-primary mt-4 rounded-full w-full">
+                    <Phone className="mr-2 w-4 h-4" />
                     Appeler Maintenant
                   </Button>
                 </CardContent>

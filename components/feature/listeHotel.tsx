@@ -33,6 +33,7 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import { hotels, Amenity } from "@/lib/hotelData";
+import { HotelDetailModal } from "../hotelDetailModal";
 
 const cities = [
   "Toutes",
@@ -44,6 +45,7 @@ const cities = [
   "Mambasa",
 ];
 
+// Mapping des icônes basé sur l'ID de l'équipement
 const amenityIcons: Record<string, React.ReactNode> = {
   wifi: <Wifi className="w-4 h-4" />,
   parking: <Car className="w-4 h-4" />,
@@ -55,7 +57,11 @@ export default function HotelsPage() {
   const [selectedCity, setSelectedCity] = useState("Toutes");
   const [priceRange, setPriceRange] = useState([0, 150]);
   const [sortBy, setSortBy] = useState("rating");
-  const [selectedAmenities, setSelectedAmenities] = useState<Amenity[]>([]);
+  const [selectHotel, setSelectHotel] = useState<any>(null);
+  const [inModalOpen, setIsModalOpen] = useState(false);
+
+  // CORRECTION : On stocke les IDs (string), pas les objets complets
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
 
   const filteredHotels = hotels
@@ -63,13 +69,19 @@ export default function HotelsPage() {
       const matchesSearch =
         hotel.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         hotel.description.toLowerCase().includes(searchQuery.toLowerCase());
+
       const matchesCity =
         selectedCity === "Toutes" || hotel.city === selectedCity;
+
       const matchesPrice =
         hotel.price >= priceRange[0] && hotel.price <= priceRange[1];
+
+      // CORRECTION : Vérification si l'hôtel possède TOUS les équipements sélectionnés
       const matchesAmenities =
         selectedAmenities.length === 0 ||
-        selectedAmenities.every((a) => hotel.amenities.includes(a as Amenity));
+        selectedAmenities.every((id) => hotel.amenities.includes(id as any));
+      // Note: 'as any' ou un cast est utilisé ici selon si hotel.amenities est string[] ou Amenity[]
+
       return matchesSearch && matchesCity && matchesPrice && matchesAmenities;
     })
     .sort((a, b) => {
@@ -80,22 +92,27 @@ export default function HotelsPage() {
       return 0;
     });
 
-  const toggleAmenity = (amenity: string) => {
+  const toggleAmenity = (amenityId: string) => {
     setSelectedAmenities((prev) =>
-      prev.includes(amenity)
-        ? prev.filter((a) => a !== amenity)
-        : [...prev, amenity],
+      prev.includes(amenityId)
+        ? prev.filter((id) => id !== amenityId)
+        : [...prev, amenityId],
     );
   };
 
+  const handleOpenModal = (hotel: any) => {
+    setSelectHotel(hotel);
+    setIsModalOpen(true);
+  };
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex flex-col min-h-screen">
       <main className="flex-1 bg-background">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-secondary via-background to-muted py-12 md:py-16">
-          <div className="container mx-auto px-4 md:px-6">
-            <div className="max-w-2xl mx-auto text-center space-y-4">
-              <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">
+        <section className="py-12 md:py-16">
+          <div className="mx-auto px-4 md:px-6 container">
+            <div className="space-y-4 mx-auto max-w-2xl text-center">
+              <h1 className="font-serif font-bold text-foreground text-3xl md:text-4xl">
                 Trouvez Votre Hôtel Idéal
               </h1>
               <p className="text-muted-foreground">
@@ -103,20 +120,19 @@ export default function HotelsPage() {
                 l&apos;Ituri
               </p>
 
-              {/* Search Bar */}
-              <div className="flex flex-col sm:flex-row justify-center items-center gap-3 mt-6">
-                <div className="relative flex-1">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <div className="flex sm:flex-row flex-col justify-center items-center gap-3 mt-6">
+                <div className="relative flex-1 w-full">
+                  <Search className="top-1/2 left-4 absolute w-5 h-5 text-muted-foreground -translate-y-1/2" />
                   <Input
                     placeholder="Rechercher un hôtel..."
-                    className="rounded-full pl-12 h-12"
+                    className="pl-12 rounded-full h-12"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
                 </div>
                 <Select value={selectedCity} onValueChange={setSelectedCity}>
-                  <SelectTrigger className="w-full sm:w-50 sm:h-12 rounded-full pl-12 h-12 relative flex items-center">
-                    <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <SelectTrigger className="relative pl-12 rounded-full w-full sm:w-50 h-12">
+                    <MapPin className="top-1/2 left-4 absolute w-5 h-5 text-muted-foreground -translate-y-1/2" />
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -134,9 +150,8 @@ export default function HotelsPage() {
 
         {/* Hotels List */}
         <section className="py-8 md:py-12">
-          <div className="container mx-auto px-4 md:px-6">
-            {/* Filters Bar */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+          <div className="mx-auto px-4 md:px-6 container">
+            <div className="flex sm:flex-row flex-col sm:justify-between sm:items-center gap-4 mb-8">
               <p className="text-muted-foreground">
                 <span className="font-semibold text-foreground">
                   {filteredHotels.length}
@@ -146,7 +161,7 @@ export default function HotelsPage() {
 
               <div className="flex items-center gap-3">
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-44 rounded-full">
+                  <SelectTrigger className="rounded-full w-44">
                     <SelectValue placeholder="Trier par" />
                   </SelectTrigger>
                   <SelectContent>
@@ -160,41 +175,36 @@ export default function HotelsPage() {
                 <Sheet open={open} onOpenChange={setOpen}>
                   <SheetTrigger asChild>
                     <Button variant="outline" className="rounded-full">
-                      <SlidersHorizontal className="w-4 h-4 mr-2" />
+                      <SlidersHorizontal className="mr-2 w-4 h-4" />
                       Filtres
                     </Button>
                   </SheetTrigger>
-                  <SheetContent className="flex flex-col h-full p-0">
-                    {/* HEADER */}
-                    <div className="px-6 py-5 border-b space-y-2">
+                  <SheetContent className="flex flex-col p-0 h-full">
+                    <div className="space-y-2 px-6 py-5 border-b">
                       <SheetHeader>
-                        <SheetTitle className="text-xl font-semibold">
+                        <SheetTitle className="font-semibold text-xl">
                           Filtres
                         </SheetTitle>
                         <SheetDescription>
                           Personnalisez votre recherche
                         </SheetDescription>
                       </SheetHeader>
-
-                      {/* ✅ COMPTEUR ICI */}
-                      <p className="text-xl text-primary font-bold">
+                      <p className="font-bold text-primary text-xl">
                         {filteredHotels.length} hôtel
-                        {filteredHotels.length > 1 && "s"} trouvé
-                        {filteredHotels.length > 1 && "s"}
+                        {filteredHotels.length > 1 ? "s" : ""} trouvé
+                        {filteredHotels.length > 1 ? "s" : ""}
                       </p>
                     </div>
 
-                    {/* CONTENT */}
-                    <div className="flex-1 overflow-y-auto px-6 py-6 space-y-10">
-                      {/* PRICE */}
+                    <div className="flex-1 space-y-10 px-6 py-6 overflow-y-auto">
+                      {/* Budget Slider */}
                       <div className="space-y-5">
                         <div>
-                          <h4 className="text-base font-semibold">Budget</h4>
-                          <p className="text-sm text-muted-foreground">
+                          <h4 className="font-semibold text-base">Budget</h4>
+                          <p className="text-muted-foreground text-sm">
                             ${priceRange[0]} — ${priceRange[1]} / nuit
                           </p>
                         </div>
-
                         <Slider
                           value={priceRange}
                           onValueChange={setPriceRange}
@@ -203,10 +213,9 @@ export default function HotelsPage() {
                         />
                       </div>
 
-                      {/* ✅ AMENITIES (CHECKBOX DESIGN) */}
+                      {/* Amenities Checkboxes */}
                       <div className="space-y-4">
-                        <h4 className="text-base font-semibold">Équipements</h4>
-
+                        <h4 className="font-semibold text-base">Équipements</h4>
                         <div className="space-y-3">
                           {[
                             { id: "wifi", label: "WiFi" },
@@ -216,13 +225,10 @@ export default function HotelsPage() {
                             const active = selectedAmenities.includes(
                               amenity.id,
                             );
-
                             return (
                               <label
                                 key={amenity.id}
-                                className={`flex items-center justify-between px-2 py-2 rounded-lg cursor-pointer transition
-                ${active ? "bg-muted/60" : "hover:bg-muted/40"}
-              `}
+                                className={`flex items-center justify-between px-2 py-2 rounded-lg cursor-pointer transition ${active ? "bg-muted/60" : "hover:bg-muted/40"}`}
                               >
                                 <div className="flex items-center gap-3">
                                   <Checkbox
@@ -235,10 +241,8 @@ export default function HotelsPage() {
                                     {amenity.label}
                                   </span>
                                 </div>
-
-                                {/* petit indicateur visuel */}
                                 {active && (
-                                  <span className="text-xs text-primary font-medium">
+                                  <span className="font-medium text-primary text-xs">
                                     Actif
                                   </span>
                                 )}
@@ -248,55 +252,53 @@ export default function HotelsPage() {
                         </div>
                       </div>
 
-                      {/* RESET */}
                       <button
                         onClick={() => {
                           setPriceRange([0, 150]);
                           setSelectedAmenities([]);
                         }}
-                        className="text-sm text-muted-foreground hover:text-foreground transition text-left"
+                        className="text-muted-foreground hover:text-foreground text-sm text-left transition"
                       >
                         Réinitialiser les filtres
                       </button>
                     </div>
 
-                    {/* FOOTER */}
                     <div className="p-5 border-t">
                       <Button
-                        className="w-full rounded-full h-12 text-base"
+                        className="rounded-full w-full h-12 text-base"
                         onClick={() => setOpen(false)}
                       >
                         Appliquer les filtres
                       </Button>
                     </div>
-                  </SheetContent>{" "}
+                  </SheetContent>
                 </Sheet>
               </div>
             </div>
 
             {/* Hotels Grid */}
             {filteredHotels.length > 0 ? (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="gap-6 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {filteredHotels.map((hotel) => (
                   <Link key={hotel.id} href={`/hotels/${hotel.id}`}>
-                    <Card className="group overflow-hidden rounded-3xl border-border hover:shadow-xl transition-all duration-300 h-full">
-                      <div className="relative overflow-hidden aspect-[4/3]">
+                    <Card className="group hover:shadow-xl border-border rounded-3xl h-full overflow-hidden transition-all duration-300">
+                      <div className="relative aspect-[4/3] overflow-hidden">
                         <img
                           src={hotel.image}
                           alt={hotel.name}
-                          className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />
                         {hotel.featured && (
-                          <Badge className="absolute top-4 left-4 rounded-full bg-accent text-accent-foreground">
+                          <Badge className="top-4 left-4 absolute bg-accent rounded-full text-accent-foreground">
                             Populaire
                           </Badge>
                         )}
-                        <div className="absolute bottom-4 right-4 bg-card/90 backdrop-blur rounded-full px-3 py-1 flex items-center gap-1">
-                          <Star className="w-4 h-4 text-accent fill-accent" />
+                        <div className="right-4 bottom-4 absolute flex items-center gap-1 bg-card/90 backdrop-blur px-3 py-1 rounded-full">
+                          <Star className="fill-accent w-4 h-4 text-accent" />
                           <span className="font-semibold text-sm">
                             {hotel.rating}
                           </span>
-                          <span className="text-xs text-muted-foreground">
+                          <span className="text-muted-foreground text-xs">
                             ({hotel.reviews})
                           </span>
                         </div>
@@ -304,7 +306,7 @@ export default function HotelsPage() {
                       <CardContent className="p-5">
                         <div className="space-y-3">
                           <div>
-                            <h3 className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                            <h3 className="font-semibold group-hover:text-primary text-lg line-clamp-1 transition-colors">
                               {hotel.name}
                             </h3>
                             <div className="flex items-center gap-1 text-muted-foreground text-sm">
@@ -312,26 +314,36 @@ export default function HotelsPage() {
                               {hotel.city}, Ituri
                             </div>
                           </div>
-                          <p className="text-sm text-muted-foreground line-clamp-2">
+                          <p className="text-muted-foreground text-sm line-clamp-2">
                             {hotel.description}
                           </p>
-                          <div className="flex items-center justify-between pt-2">
+                          <div className="flex justify-between items-center pt-2">
                             <div className="flex gap-2">
-                              {hotel.amenities.map((amenity) => (
+                              {/* CORRECTION : On s'assure que amenity est traité comme une string pour l'icône */}
+                              {hotel.amenities.map((amenity: any) => (
                                 <div
-                                  key={amenity}
-                                  className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground"
-                                  title={amenity}
+                                  key={
+                                    typeof amenity === "string"
+                                      ? amenity
+                                      : amenity.id
+                                  }
+                                  className="flex justify-center items-center bg-muted rounded-full w-8 h-8 text-muted-foreground"
                                 >
-                                  {amenityIcons[amenity]}
+                                  {
+                                    amenityIcons[
+                                      typeof amenity === "string"
+                                        ? amenity
+                                        : amenity.id
+                                    ]
+                                  }
                                 </div>
                               ))}
                             </div>
                             <div className="text-right">
-                              <p className="font-serif text-xl font-bold text-primary">
+                              <p className="font-serif font-bold text-primary text-xl">
                                 ${hotel.price}
                               </p>
-                              <p className="text-xs text-muted-foreground">
+                              <p className="text-muted-foreground text-xs">
                                 /nuit
                               </p>
                             </div>
@@ -345,11 +357,11 @@ export default function HotelsPage() {
             ) : (
               <Card className="rounded-3xl">
                 <CardContent className="py-16 text-center">
-                  <Search className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="font-serif text-xl font-semibold mb-2">
+                  <Search className="mx-auto mb-4 w-12 h-12 text-muted-foreground" />
+                  <h3 className="mb-2 font-serif font-semibold text-xl">
                     Aucun hôtel trouvé
                   </h3>
-                  <p className="text-muted-foreground mb-4">
+                  <p className="mb-4 text-muted-foreground">
                     Essayez de modifier vos critères de recherche
                   </p>
                   <Button

@@ -1,4 +1,4 @@
-type Amenity = "wifi" | "parking" | "restaurant";
+export type Amenity = "wifi" | "parking" | "restaurant";
 
 export type Hotel = {
   id: number;
@@ -12,7 +12,7 @@ export type Hotel = {
   description: string;
   rooms: number;
   featured: boolean;
-};  
+};
 
 export const hotels: Hotel[] = [
   {

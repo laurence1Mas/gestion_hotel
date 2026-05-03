@@ -15,33 +15,33 @@ export default function page({ params }: { params: { id: string } }) {
   return (
     <div>
       <div>
-        <h1>Hôtels disponibles</h1>
+        <h1 className="font-bold text-background-forground text-3xl">
+          Hôtels disponibles
+        </h1>
         <p>
           Chaque detail est bien pensé pour vous offrir un séjour de votre goût
         </p>
 
-        <div className="w-full h-auto flex flex-col md:flex-row p-8 bg-white-100">
+        <div className="grid  grid-cols-1 md:grid-cols-2 gap-8 mt-8">
           {hotels.map((hotel) => (
-            <div key={hotel.id} className="w-full md:w-1/2">
-              <Link href={`/hotels/${hotel.id}`}>
-                <div key={hotel.id}>
-                  <Image
-                    src={hotel.image}
-                    alt={hotel.image}
-                    width={100}
-                    height={100}
-                  />
+            <Link key={hotel.id} href={`/hotels/${hotel.id}`} className="flex ">
+              <div key={hotel.id}>
+                <Image
+                  src={hotel.image}
+                  alt={hotel.image}
+                  width={100}
+                  height={100}
+                />
+                <div>
+                  <h2>{hotel.name}</h2>
+                  <p>{hotel.city}</p>
+                  <p>{hotel.description}</p>
                   <div>
-                    <h2>{hotel.name}</h2>
-                    <p>{hotel.city}</p>
-                    <p>{hotel.description}</p>
-                    <div>
-                      <h2>{hotel.price} par nuit</h2>
-                    </div>
+                    <h2>{hotel.price} par nuit</h2>
                   </div>
                 </div>
-              </Link>
-            </div>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
