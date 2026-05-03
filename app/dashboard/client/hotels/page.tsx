@@ -1,21 +1,22 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { hotels } from "@/lib/hotelData";
 import Link from "next/link";
 import Image from "next/image";
+import { Hotels } from "@/data/mockData";
+import { HotelCard } from "@/components/HotelCard";
 
 export default function HotelsPage() {
   const [city, setCity] = useState("Tous");
 
-  // filtre les hotels
+  // filtre les Hotels
   const filteredHotels = useMemo(() => {
-    if (city === "Tous") return hotels;
-    return hotels.filter((h) => h.city === city);
+    if (city === "Tous") return Hotels;
+    return Hotels.filter((h) => h.city === city);
   }, [city]);
 
   // récupérer villes uniques
-  const cities = ["Tous", ...new Set(hotels.map((h) => h.city))];
+  const cities = ["Tous", ...new Set(Hotels.map((h) => h.city))];
 
   return (
     <div className="px-4 md:px-10 py-6 overflow-x-hidden">
@@ -43,12 +44,12 @@ export default function HotelsPage() {
       {/* GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredHotels.map((hotel) => (
-          <Link key={hotel.id} href={`/hotels/${hotel.id}`}>
+          <Link key={hotel.id} href={`/Hotels/${hotel.id}`}>
             <div className="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition cursor-pointer bg-white">
               {/* IMAGE */}
               <div className="relative w-full h-52">
                 <Image
-                  src={hotel.image}
+                  src={`${hotel.image}`}
                   alt={hotel.name}
                   fill
                   className="object-cover"

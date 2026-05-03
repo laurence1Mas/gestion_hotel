@@ -3,7 +3,7 @@ import { Hotel, Reservation, User } from "@/types/types";
 const img = (id: string) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1200&q=80`;
 
-export const mockUsers: User[] = [
+export const Users: User[] = [
   { id: "u1", name: "Alice Dubois", email: "alice@maison.com", role: "client" },
   {
     id: "u2",
@@ -15,413 +15,722 @@ export const mockUsers: User[] = [
   { id: "u3", name: "Sophie Admin", email: "admin@maison.com", role: "admin" },
 ];
 
-const mkRooms = (hotelId: string, base: number): Hotel["rooms"] => [
-  {
-    id: `${hotelId}-r1`,
-    hotelId,
-    name: "Chambre Standard",
-    type: "Standard",
-    capacity: 2,
-    pricePerNight: base,
-    available: 8,
-    total: 12,
-    amenities: ["WiFi", "TV", "Climatisation"],
-    image: img("photo-1631049307264-da0ec9d70304"),
-  },
-  {
-    id: `${hotelId}-r2`,
-    hotelId,
-    name: "Chambre Deluxe",
-    type: "Deluxe",
-    capacity: 2,
-    pricePerNight: base * 1.6,
-    available: 4,
-    total: 6,
-    amenities: ["WiFi", "Vue mer", "Mini-bar"],
-    image: img("photo-1582719478250-c89cae4dc85b"),
-  },
-  {
-    id: `${hotelId}-r3`,
-    hotelId,
-    name: "Suite Junior",
-    type: "Suite",
-    capacity: 3,
-    pricePerNight: base * 2.4,
-    available: 2,
-    total: 4,
-    amenities: ["WiFi", "Jacuzzi", "Salon privé"],
-    image: img("photo-1591088398332-8a7791972843"),
-  },
-  {
-    id: `${hotelId}-r4`,
-    hotelId,
-    name: "Penthouse",
-    type: "Penthouse",
-    capacity: 4,
-    pricePerNight: base * 4,
-    available: 1,
-    total: 1,
-    amenities: ["Terrasse", "Piscine privée", "Butler"],
-    image: img("photo-1566073771259-6a8506099945"),
-  },
-];
+// const mkRooms = (hotelId: string, base: number): Hotel["rooms"] => [
+//   {
+//     id: 1,
+//     type: "Chambre Simple",
+//     price: 45,
+//     capacity: 1,
+//     description:
+//       "Chambre confortable pour voyageur solo avec lit simple et salle de bain privée.",
+//     amenities: ["wifi", "tv", "ac"],
+//     image:
+//       "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=300&fit=crop",
+//     available: true,
+//   },
+// ];
 
-export const mockHotels: Hotel[] = [
+export const Hotels: Hotel[] = [
   {
-    id: "h1",
+    id: 1,
     name: "Le Royal Méditerranée",
     city: "Nice",
-    country: "France",
     description:
       "Niché sur la Promenade des Anglais, Le Royal Méditerranée allie l'élégance Belle Époque à un service contemporain. Chaque suite offre une vue imprenable sur la baie des Anges, et le spa Lumière propose des soins exclusifs.",
-    shortDescription: "Élégance Belle Époque face à la baie des Anges.",
     rating: 4.9,
     reviews: 1284,
-    pricePerNight: 320,
-    images: [
+    price: 320,
+    image: [
       img("photo-1566073771259-6a8506099945"),
       img("photo-1564501049412-61c2a3083791"),
       img("photo-1582719478250-c89cae4dc85b"),
       img("photo-1571896349842-33c89424de2d"),
     ],
-    amenities: [
-      "Piscine",
-      "Spa",
-      "Restaurant étoilé",
-      "Plage privée",
-      "WiFi",
-      "Conciergerie",
+    amenities: ["wifi", "parking", "restaurant", "tv", "ac"],
+    rooms: [
+      {
+        id: 1,
+        type: "Chambre Simple",
+        price: 45,
+        capacity: 1,
+        description:
+          "Chambre confortable pour voyageur solo avec lit simple et salle de bain privée.",
+        amenities: ["wifi", "tv", "ac"],
+        image:
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 2,
+        type: "Chambre Double",
+        price: 65,
+        capacity: 2,
+        description:
+          "Chambre spacieuse avec lit double king size, coin salon et vue sur la ville.",
+        amenities: ["wifi", "tv", "ac"],
+        image:
+          "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 3,
+        type: "Suite Deluxe",
+        price: 85,
+        capacity: 2,
+        description:
+          "Suite luxueuse avec salon séparé, lit king size, minibar et vue panoramique.",
+        amenities: ["wifi", "tv", "ac", "parking"],
+        image:
+          "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 4,
+        type: "Suite Premium",
+        price: 120,
+        capacity: 4,
+        description:
+          "Notre meilleure suite avec deux chambres, jacuzzi, service VIP et petit-déjeuner inclus.",
+        amenities: ["wifi", "tv", "ac", "parking", "restaurant"],
+        image:
+          "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop",
+        available: false,
+      },
     ],
-    tags: ["Bord de mer", "Luxe", "Spa"],
-    coordinates: { lat: 43.6951, lng: 7.2655 },
-    rooms: mkRooms("h1", 320),
-    managerId: "u2",
+
     revenue: 824300,
     occupancy: 87,
   },
   {
-    id: "h2",
-    name: "Maison Lumière Paris",
-    city: "Paris",
-    country: "France",
+    id: 1,
+    name: "Le Royal Méditerranée",
+    city: "Nice",
     description:
-      "Au cœur du 8ᵉ arrondissement, à deux pas des Champs-Élysées, ce palace haussmannien offre 78 chambres et suites au design contemporain signé par les plus grands architectes d'intérieur.",
-    shortDescription: "Palace haussmannien au cœur du Triangle d'Or.",
-    rating: 4.8,
-    reviews: 2103,
-    pricePerNight: 480,
-    images: [
-      img("photo-1551882547-ff40c63fe5fa"),
-      img("photo-1455587734955-081b22074882"),
-      img("photo-1578683010236-d716f9a3f461"),
-      img("photo-1590490360182-c33d57733427"),
-    ],
-    amenities: [
-      "Spa",
-      "Restaurant étoilé",
-      "Bar",
-      "Salle de sport",
-      "Concierge",
-    ],
-    tags: ["Urbain", "Palace", "Affaires"],
-    coordinates: { lat: 48.8698, lng: 2.3075 },
-    rooms: mkRooms("h2", 480),
-    revenue: 1240500,
-    occupancy: 92,
-  },
-  {
-    id: "h3",
-    name: "Riad El Andalous",
-    city: "Marrakech",
-    country: "Maroc",
-    description:
-      "Riad d'exception au cœur de la médina, mêlant artisanat marocain authentique et confort contemporain. Patio central avec piscine et hammam traditionnel.",
-    shortDescription: "Riad authentique au cœur de la médina.",
-    rating: 4.7,
-    reviews: 892,
-    pricePerNight: 180,
-    images: [
-      img("photo-1539020140153-e479b8c5b2a1"),
-      img("photo-1542314831-068cd1dbfeeb"),
-      img("photo-1505693416388-ac5ce068fe85"),
-      img("photo-1571003123894-1f0594d2b5d9"),
-    ],
-    amenities: ["Piscine", "Hammam", "Restaurant", "Terrasse", "WiFi"],
-    tags: ["Authentique", "Boutique", "Spa"],
-    coordinates: { lat: 31.6295, lng: -7.9811 },
-    rooms: mkRooms("h3", 180),
-    revenue: 412000,
-    occupancy: 78,
-  },
-  {
-    id: "h4",
-    name: "Alpine Lodge Verbier",
-    city: "Verbier",
-    country: "Suisse",
-    description:
-      "Chalet de luxe pied-de-pistes, alliant l'authenticité du bois alpin à un service 5 étoiles. Spa panoramique avec vue sur les Alpes.",
-    shortDescription: "Chalet pied-de-pistes face aux Alpes.",
+      "Niché sur la Promenade des Anglais, Le Royal Méditerranée allie l'élégance Belle Époque à un service contemporain. Chaque suite offre une vue imprenable sur la baie des Anges, et le spa Lumière propose des soins exclusifs.",
     rating: 4.9,
-    reviews: 654,
-    pricePerNight: 590,
-    images: [
-      img("photo-1520250497591-112f2f40a3f4"),
-      img("photo-1551524559-8af4e6624178"),
-      img("photo-1517320964276-a002fa203177"),
-      img("photo-1483450388369-9ed95738483c"),
-    ],
-    amenities: ["Spa", "Ski room", "Restaurant", "Cheminée", "Navette"],
-    tags: ["Montagne", "Ski", "Luxe"],
-    coordinates: { lat: 46.0963, lng: 7.2287 },
-    rooms: mkRooms("h4", 590),
-    revenue: 980000,
-    occupancy: 95,
-  },
-  {
-    id: "h5",
-    name: "Villa Aetheria Santorin",
-    city: "Oia",
-    country: "Grèce",
-    description:
-      "Suites troglodytiques sculptées dans la falaise, piscines à débordement face à la caldeira. Coucher de soleil légendaire chaque soir.",
-    shortDescription: "Suites troglodytiques face à la caldeira.",
-    rating: 5.0,
-    reviews: 421,
-    pricePerNight: 720,
-    images: [
-      img("photo-1570213489059-0aac6626cade"),
-      img("photo-1613395877344-13d4a8e0d49e"),
-      img("photo-1469796466635-455ede028aca"),
-      img("photo-1602002418082-a4443e081dd1"),
-    ],
-    amenities: ["Piscine privée", "Spa", "Restaurant", "Vue caldeira", "Yacht"],
-    tags: ["Romantique", "Vue mer", "Exclusif"],
-    coordinates: { lat: 36.4618, lng: 25.3753 },
-    rooms: mkRooms("h5", 720),
-    revenue: 1580000,
-    occupancy: 89,
-  },
-  {
-    id: "h6",
-    name: "Sakura Ryokan Kyoto",
-    city: "Kyoto",
-    country: "Japon",
-    description:
-      "Ryokan traditionnel transmis depuis cinq générations. Tatamis, onsen privé et cuisine kaiseki préparée par un chef étoilé.",
-    shortDescription: "Ryokan traditionnel et onsen privé.",
-    rating: 4.8,
-    reviews: 312,
-    pricePerNight: 420,
-    images: [
-      img("photo-1528360983277-13d401cdc186"),
-      img("photo-1545569310-c55162a1cad0"),
-      img("photo-1480796927426-f609979314bd"),
-      img("photo-1493976040374-85c8e12f0c0e"),
-    ],
-    amenities: ["Onsen", "Restaurant kaiseki", "Jardin zen", "WiFi"],
-    tags: ["Authentique", "Bien-être", "Culturel"],
-    coordinates: { lat: 35.0116, lng: 135.7681 },
-    rooms: mkRooms("h6", 420),
-    revenue: 720000,
-    occupancy: 82,
-  },
-  {
-    id: "h7",
-    name: "Desert Pearl Dubaï",
-    city: "Dubaï",
-    country: "EAU",
-    description:
-      "Resort futuriste en bord de désert, architecture audacieuse, infinity pool dorée et spa panoramique sur 40ᵉ étage.",
-    shortDescription: "Resort futuriste en lisière du désert.",
-    rating: 4.6,
-    reviews: 1842,
-    pricePerNight: 550,
-    images: [
-      img("photo-1512453979798-5ea266f8880c"),
-      img("photo-1549294413-26f195200c16"),
-      img("photo-1582719508461-905c673771fd"),
-      img("photo-1571003123894-1f0594d2b5d9"),
-    ],
-    amenities: ["Piscine", "Spa", "5 restaurants", "Désert tour", "Plage"],
-    tags: ["Resort", "Désert", "Luxe"],
-    coordinates: { lat: 25.2048, lng: 55.2708 },
-    rooms: mkRooms("h7", 550),
-    revenue: 2100000,
-    occupancy: 91,
-  },
-  {
-    id: "h8",
-    name: "Manoir des Vignes Bourgogne",
-    city: "Beaune",
-    country: "France",
-    description:
-      "Manoir XVIIIᵉ entouré de vignobles classés. Cave à vin exceptionnelle et restaurant gastronomique.",
-    shortDescription: "Manoir XVIIIᵉ au cœur des grands crus.",
-    rating: 4.7,
-    reviews: 528,
-    pricePerNight: 290,
-    images: [
-      img("photo-1568084680786-a84f91d1153c"),
-      img("photo-1571508601891-ca5e7a713859"),
-      img("photo-1549294413-26f195200c16"),
-      img("photo-1505693416388-ac5ce068fe85"),
-    ],
-    amenities: ["Cave à vin", "Restaurant", "Spa", "Vélos", "WiFi"],
-    tags: ["Œnologie", "Campagne", "Gastronomie"],
-    coordinates: { lat: 47.024, lng: 4.8395 },
-    rooms: mkRooms("h8", 290),
-    revenue: 384000,
-    occupancy: 74,
-  },
-  {
-    id: "h9",
-    name: "Casa Tulum Riviera",
-    city: "Tulum",
-    country: "Mexique",
-    description:
-      "Eco-resort en bord de plage, bungalows en bois exotique et cénote privé. Yoga, méditation et cuisine mexicaine raffinée.",
-    shortDescription: "Eco-resort de plage avec cénote privé.",
-    rating: 4.8,
-    reviews: 756,
-    pricePerNight: 380,
-    images: [
-      img("photo-1540541338287-41700207dee6"),
-      img("photo-1582719508461-905c673771fd"),
-      img("photo-1505881502353-a1986add3762"),
-      img("photo-1469796466635-455ede028aca"),
-    ],
-    amenities: ["Plage privée", "Cénote", "Yoga", "Spa", "Restaurant"],
-    tags: ["Plage", "Bien-être", "Eco"],
-    coordinates: { lat: 20.2114, lng: -87.4654 },
-    rooms: mkRooms("h9", 380),
-    revenue: 690000,
-    occupancy: 88,
-  },
-  {
-    id: "h10",
-    name: "The Highland Castle",
-    city: "Inverness",
-    country: "Écosse",
-    description:
-      "Château écossais XIIᵉ siècle restauré, lochs privés et parcours de golf 18 trous. Whisky bar légendaire.",
-    shortDescription: "Château historique et lochs privés.",
-    rating: 4.6,
-    reviews: 289,
-    pricePerNight: 460,
-    images: [
+    reviews: 1284,
+    price: 320,
+    image: [
+      img("photo-1566073771259-6a8506099945"),
       img("photo-1564501049412-61c2a3083791"),
+      img("photo-1582719478250-c89cae4dc85b"),
       img("photo-1571896349842-33c89424de2d"),
-      img("photo-1551882547-ff40c63fe5fa"),
-      img("photo-1455587734955-081b22074882"),
     ],
-    amenities: ["Golf", "Whisky bar", "Pêche", "Spa", "Restaurant"],
-    tags: ["Château", "Golf", "Histoire"],
-    coordinates: { lat: 57.4778, lng: -4.2247 },
-    rooms: mkRooms("h10", 460),
-    revenue: 510000,
-    occupancy: 71,
+    amenities: ["wifi", "parking", "restaurant", "tv", "ac"],
+    rooms: [
+      {
+        id: 1,
+        type: "Chambre Simple",
+        price: 45,
+        capacity: 1,
+        description:
+          "Chambre confortable pour voyageur solo avec lit simple et salle de bain privée.",
+        amenities: ["wifi", "tv", "ac"],
+        image:
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 2,
+        type: "Chambre Double",
+        price: 65,
+        capacity: 2,
+        description:
+          "Chambre spacieuse avec lit double king size, coin salon et vue sur la ville.",
+        amenities: ["wifi", "tv", "ac"],
+        image:
+          "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 3,
+        type: "Suite Deluxe",
+        price: 85,
+        capacity: 2,
+        description:
+          "Suite luxueuse avec salon séparé, lit king size, minibar et vue panoramique.",
+        amenities: ["wifi", "tv", "ac", "parking"],
+        image:
+          "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 4,
+        type: "Suite Premium",
+        price: 120,
+        capacity: 4,
+        description:
+          "Notre meilleure suite avec deux chambres, jacuzzi, service VIP et petit-déjeuner inclus.",
+        amenities: ["wifi", "tv", "ac", "parking", "restaurant"],
+        image:
+          "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop",
+        available: false,
+      },
+    ],
+
+    revenue: 824300,
+    occupancy: 87,
   },
   {
-    id: "h11",
-    name: "Lagoon Villas Bora-Bora",
-    city: "Bora-Bora",
-    country: "Polynésie",
+    id: 1,
+    name: "Le Royal Méditerranée",
+    city: "Nice",
     description:
-      "Villas sur pilotis face au mont Otemanu, plancher de verre, accès direct au lagon turquoise.",
-    shortDescription: "Villas sur pilotis face au mont Otemanu.",
+      "Niché sur la Promenade des Anglais, Le Royal Méditerranée allie l'élégance Belle Époque à un service contemporain. Chaque suite offre une vue imprenable sur la baie des Anges, et le spa Lumière propose des soins exclusifs.",
     rating: 4.9,
-    reviews: 612,
-    pricePerNight: 980,
-    images: [
-      img("photo-1505881502353-a1986add3762"),
-      img("photo-1540541338287-41700207dee6"),
-      img("photo-1469796466635-455ede028aca"),
-      img("photo-1582719508461-905c673771fd"),
+    reviews: 1284,
+    price: 320,
+    image: [
+      img("photo-1566073771259-6a8506099945"),
+      img("photo-1564501049412-61c2a3083791"),
+      img("photo-1582719478250-c89cae4dc85b"),
+      img("photo-1571896349842-33c89424de2d"),
     ],
-    amenities: ["Lagon privé", "Spa", "3 restaurants", "Plongée", "Yacht"],
-    tags: ["Lagon", "Pilotis", "Romantique"],
-    coordinates: { lat: -16.5004, lng: -151.7415 },
-    rooms: mkRooms("h11", 980),
-    revenue: 2840000,
-    occupancy: 96,
+    amenities: ["wifi", "parking", "restaurant", "tv", "ac"],
+    rooms: [
+      {
+        id: 1,
+        type: "Chambre Simple",
+        price: 45,
+        capacity: 1,
+        description:
+          "Chambre confortable pour voyageur solo avec lit simple et salle de bain privée.",
+        amenities: ["wifi", "tv", "ac"],
+        image:
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 2,
+        type: "Chambre Double",
+        price: 65,
+        capacity: 2,
+        description:
+          "Chambre spacieuse avec lit double king size, coin salon et vue sur la ville.",
+        amenities: ["wifi", "tv", "ac"],
+        image:
+          "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 3,
+        type: "Suite Deluxe",
+        price: 85,
+        capacity: 2,
+        description:
+          "Suite luxueuse avec salon séparé, lit king size, minibar et vue panoramique.",
+        amenities: ["wifi", "tv", "ac", "parking"],
+        image:
+          "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 4,
+        type: "Suite Premium",
+        price: 120,
+        capacity: 4,
+        description:
+          "Notre meilleure suite avec deux chambres, jacuzzi, service VIP et petit-déjeuner inclus.",
+        amenities: ["wifi", "tv", "ac", "parking", "restaurant"],
+        image:
+          "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop",
+        available: false,
+      },
+    ],
+
+    revenue: 824300,
+    occupancy: 87,
   },
   {
-    id: "h12",
-    name: "The Loft New York",
-    city: "New York",
-    country: "USA",
+    id: 1,
+    name: "Le Royal Méditerranée",
+    city: "Nice",
     description:
-      "Hôtel design dans Manhattan, rooftop avec vue sur Central Park et galerie d'art contemporain.",
-    shortDescription: "Hôtel design face à Central Park.",
-    rating: 4.5,
-    reviews: 1923,
-    pricePerNight: 510,
-    images: [
-      img("photo-1551882547-ff40c63fe5fa"),
-      img("photo-1590490360182-c33d57733427"),
-      img("photo-1578683010236-d716f9a3f461"),
-      img("photo-1455587734955-081b22074882"),
+      "Niché sur la Promenade des Anglais, Le Royal Méditerranée allie l'élégance Belle Époque à un service contemporain. Chaque suite offre une vue imprenable sur la baie des Anges, et le spa Lumière propose des soins exclusifs.",
+    rating: 4.9,
+    reviews: 1284,
+    price: 320,
+    image: [
+      img("photo-1566073771259-6a8506099945"),
+      img("photo-1564501049412-61c2a3083791"),
+      img("photo-1582719478250-c89cae4dc85b"),
+      img("photo-1571896349842-33c89424de2d"),
     ],
-    amenities: ["Rooftop", "Galerie", "Restaurant", "Salle de sport", "Spa"],
-    tags: ["Urbain", "Design", "Art"],
-    coordinates: { lat: 40.7831, lng: -73.9712 },
-    rooms: mkRooms("h12", 510),
-    revenue: 1750000,
-    occupancy: 90,
+    amenities: ["wifi", "parking", "restaurant", "tv", "ac"],
+    rooms: [
+      {
+        id: 1,
+        type: "Chambre Simple",
+        price: 45,
+        capacity: 1,
+        description:
+          "Chambre confortable pour voyageur solo avec lit simple et salle de bain privée.",
+        amenities: ["wifi", "tv", "ac"],
+        image:
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 2,
+        type: "Chambre Double",
+        price: 65,
+        capacity: 2,
+        description:
+          "Chambre spacieuse avec lit double king size, coin salon et vue sur la ville.",
+        amenities: ["wifi", "tv", "ac"],
+        image:
+          "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 3,
+        type: "Suite Deluxe",
+        price: 85,
+        capacity: 2,
+        description:
+          "Suite luxueuse avec salon séparé, lit king size, minibar et vue panoramique.",
+        amenities: ["wifi", "tv", "ac", "parking"],
+        image:
+          "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 4,
+        type: "Suite Premium",
+        price: 120,
+        capacity: 4,
+        description:
+          "Notre meilleure suite avec deux chambres, jacuzzi, service VIP et petit-déjeuner inclus.",
+        amenities: ["wifi", "tv", "ac", "parking", "restaurant"],
+        image:
+          "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop",
+        available: false,
+      },
+    ],
+
+    revenue: 824300,
+    occupancy: 87,
+  },
+  {
+    id: 1,
+    name: "Le Royal Méditerranée",
+    city: "Nice",
+    description:
+      "Niché sur la Promenade des Anglais, Le Royal Méditerranée allie l'élégance Belle Époque à un service contemporain. Chaque suite offre une vue imprenable sur la baie des Anges, et le spa Lumière propose des soins exclusifs.",
+    rating: 4.9,
+    reviews: 1284,
+    price: 320,
+    image: [
+      img("photo-1566073771259-6a8506099945"),
+      img("photo-1564501049412-61c2a3083791"),
+      img("photo-1582719478250-c89cae4dc85b"),
+      img("photo-1571896349842-33c89424de2d"),
+    ],
+    amenities: ["wifi", "parking", "restaurant", "tv", "ac"],
+    rooms: [
+      {
+        id: 1,
+        type: "Chambre Simple",
+        price: 45,
+        capacity: 1,
+        description:
+          "Chambre confortable pour voyageur solo avec lit simple et salle de bain privée.",
+        amenities: ["wifi", "tv", "ac"],
+        image:
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 2,
+        type: "Chambre Double",
+        price: 65,
+        capacity: 2,
+        description:
+          "Chambre spacieuse avec lit double king size, coin salon et vue sur la ville.",
+        amenities: ["wifi", "tv", "ac"],
+        image:
+          "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 3,
+        type: "Suite Deluxe",
+        price: 85,
+        capacity: 2,
+        description:
+          "Suite luxueuse avec salon séparé, lit king size, minibar et vue panoramique.",
+        amenities: ["wifi", "tv", "ac", "parking"],
+        image:
+          "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 4,
+        type: "Suite Premium",
+        price: 120,
+        capacity: 4,
+        description:
+          "Notre meilleure suite avec deux chambres, jacuzzi, service VIP et petit-déjeuner inclus.",
+        amenities: ["wifi", "tv", "ac", "parking", "restaurant"],
+        image:
+          "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop",
+        available: false,
+      },
+    ],
+
+    revenue: 824300,
+    occupancy: 87,
+  },
+  {
+    id: 1,
+    name: "Le Royal Méditerranée",
+    city: "Nice",
+    description:
+      "Niché sur la Promenade des Anglais, Le Royal Méditerranée allie l'élégance Belle Époque à un service contemporain. Chaque suite offre une vue imprenable sur la baie des Anges, et le spa Lumière propose des soins exclusifs.",
+    rating: 4.9,
+    reviews: 1284,
+    price: 320,
+    image: [
+      img("photo-1566073771259-6a8506099945"),
+      img("photo-1564501049412-61c2a3083791"),
+      img("photo-1582719478250-c89cae4dc85b"),
+      img("photo-1571896349842-33c89424de2d"),
+    ],
+    amenities: ["wifi", "parking", "restaurant", "tv", "ac"],
+    rooms: [
+      {
+        id: 1,
+        type: "Chambre Simple",
+        price: 45,
+        capacity: 1,
+        description:
+          "Chambre confortable pour voyageur solo avec lit simple et salle de bain privée.",
+        amenities: ["wifi", "tv", "ac"],
+        image:
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 2,
+        type: "Chambre Double",
+        price: 65,
+        capacity: 2,
+        description:
+          "Chambre spacieuse avec lit double king size, coin salon et vue sur la ville.",
+        amenities: ["wifi", "tv", "ac"],
+        image:
+          "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 3,
+        type: "Suite Deluxe",
+        price: 85,
+        capacity: 2,
+        description:
+          "Suite luxueuse avec salon séparé, lit king size, minibar et vue panoramique.",
+        amenities: ["wifi", "tv", "ac", "parking"],
+        image:
+          "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 4,
+        type: "Suite Premium",
+        price: 120,
+        capacity: 4,
+        description:
+          "Notre meilleure suite avec deux chambres, jacuzzi, service VIP et petit-déjeuner inclus.",
+        amenities: ["wifi", "tv", "ac", "parking", "restaurant"],
+        image:
+          "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop",
+        available: false,
+      },
+    ],
+
+    revenue: 824300,
+    occupancy: 87,
+  },
+  {
+    id: 2,
+    name: "Le Royal Méditerranée",
+    city: "Nice",
+    description:
+      "Niché sur la Promenade des Anglais, Le Royal Méditerranée allie l'élégance Belle Époque à un service contemporain. Chaque suite offre une vue imprenable sur la baie des Anges, et le spa Lumière propose des soins exclusifs.",
+    rating: 4.9,
+    reviews: 1284,
+    price: 320,
+    image: [
+      img("photo-1566073771259-6a8506099945"),
+      img("photo-1564501049412-61c2a3083791"),
+      img("photo-1582719478250-c89cae4dc85b"),
+      img("photo-1571896349842-33c89424de2d"),
+    ],
+    amenities: ["wifi", "parking", "restaurant", "tv", "ac"],
+    rooms: [
+      {
+        id: 1,
+        type: "Chambre Simple",
+        price: 45,
+        capacity: 1,
+        description:
+          "Chambre confortable pour voyageur solo avec lit simple et salle de bain privée.",
+        amenities: ["wifi", "tv", "ac"],
+        image:
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 2,
+        type: "Chambre Double",
+        price: 65,
+        capacity: 2,
+        description:
+          "Chambre spacieuse avec lit double king size, coin salon et vue sur la ville.",
+        amenities: ["wifi", "tv", "ac"],
+        image:
+          "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 3,
+        type: "Suite Deluxe",
+        price: 85,
+        capacity: 2,
+        description:
+          "Suite luxueuse avec salon séparé, lit king size, minibar et vue panoramique.",
+        amenities: ["wifi", "tv", "ac", "parking"],
+        image:
+          "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 4,
+        type: "Suite Premium",
+        price: 120,
+        capacity: 4,
+        description:
+          "Notre meilleure suite avec deux chambres, jacuzzi, service VIP et petit-déjeuner inclus.",
+        amenities: ["wifi", "tv", "ac", "parking", "restaurant"],
+        image:
+          "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop",
+        available: false,
+      },
+    ],
+
+    revenue: 824300,
+    occupancy: 87,
+  },
+  {
+    id: 3,
+    name: "Le Royal Méditerranée",
+    city: "Nice",
+    description:
+      "Niché sur la Promenade des Anglais, Le Royal Méditerranée allie l'élégance Belle Époque à un service contemporain. Chaque suite offre une vue imprenable sur la baie des Anges, et le spa Lumière propose des soins exclusifs.",
+    rating: 4.9,
+    reviews: 1284,
+    price: 320,
+    image: [
+      img("photo-1566073771259-6a8506099945"),
+      img("photo-1564501049412-61c2a3083791"),
+      img("photo-1582719478250-c89cae4dc85b"),
+      img("photo-1571896349842-33c89424de2d"),
+    ],
+    amenities: ["wifi", "parking", "restaurant", "tv", "ac"],
+    rooms: [
+      {
+        id: 1,
+        type: "Chambre Simple",
+        price: 45,
+        capacity: 1,
+        description:
+          "Chambre confortable pour voyageur solo avec lit simple et salle de bain privée.",
+        amenities: ["wifi", "tv", "ac"],
+        image:
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 2,
+        type: "Chambre Double",
+        price: 65,
+        capacity: 2,
+        description:
+          "Chambre spacieuse avec lit double king size, coin salon et vue sur la ville.",
+        amenities: ["wifi", "tv", "ac"],
+        image:
+          "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 3,
+        type: "Suite Deluxe",
+        price: 85,
+        capacity: 2,
+        description:
+          "Suite luxueuse avec salon séparé, lit king size, minibar et vue panoramique.",
+        amenities: ["wifi", "tv", "ac", "parking"],
+        image:
+          "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 4,
+        type: "Suite Premium",
+        price: 120,
+        capacity: 4,
+        description:
+          "Notre meilleure suite avec deux chambres, jacuzzi, service VIP et petit-déjeuner inclus.",
+        amenities: ["wifi", "tv", "ac", "parking", "restaurant"],
+        image:
+          "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop",
+        available: false,
+      },
+    ],
+
+    revenue: 824300,
+    occupancy: 87,
+  },
+  {
+    id: 4,
+    name: "Le Royal Méditerranée",
+    city: "Nice",
+    description:
+      "Niché sur la Promenade des Anglais, Le Royal Méditerranée allie l'élégance Belle Époque à un service contemporain. Chaque suite offre une vue imprenable sur la baie des Anges, et le spa Lumière propose des soins exclusifs.",
+    rating: 4.9,
+    reviews: 1284,
+    price: 320,
+    image: [
+      img("photo-1566073771259-6a8506099945"),
+      img("photo-1564501049412-61c2a3083791"),
+      img("photo-1582719478250-c89cae4dc85b"),
+      img("photo-1571896349842-33c89424de2d"),
+    ],
+    amenities: ["wifi", "parking", "restaurant", "tv", "ac"],
+    rooms: [
+      {
+        id: 1,
+        type: "Chambre Simple",
+        price: 45,
+        capacity: 1,
+        description:
+          "Chambre confortable pour voyageur solo avec lit simple et salle de bain privée.",
+        amenities: ["wifi", "tv", "ac"],
+        image:
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 2,
+        type: "Chambre Double",
+        price: 65,
+        capacity: 2,
+        description:
+          "Chambre spacieuse avec lit double king size, coin salon et vue sur la ville.",
+        amenities: ["wifi", "tv", "ac"],
+        image:
+          "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 3,
+        type: "Suite Deluxe",
+        price: 85,
+        capacity: 2,
+        description:
+          "Suite luxueuse avec salon séparé, lit king size, minibar et vue panoramique.",
+        amenities: ["wifi", "tv", "ac", "parking"],
+        image:
+          "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&h=300&fit=crop",
+        available: true,
+      },
+      {
+        id: 4,
+        type: "Suite Premium",
+        price: 120,
+        capacity: 4,
+        description:
+          "Notre meilleure suite avec deux chambres, jacuzzi, service VIP et petit-déjeuner inclus.",
+        amenities: ["wifi", "tv", "ac", "parking", "restaurant"],
+        image:
+          "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop",
+        available: false,
+      },
+    ],
+
+    revenue: 824300,
+    occupancy: 87,
   },
 ];
 
-export const mockReservations: Reservation[] = [
+export const Reservations: Reservation[] = [
   {
-    id: "r1",
-    hotelId: "h1",
-    hotelName: "Le Royal Méditerranée",
-    roomId: "h1-r2",
-    roomName: "Chambre Deluxe",
-    userId: "u1",
-    userName: "Alice Dubois",
-    checkIn: "2026-05-12",
-    checkOut: "2026-05-16",
-    guests: 2,
-    total: 2048,
+    id: 1,
+    hotel: "Hôtel Ituri Palace",
+    room: "Suite Deluxe",
+    roomNumber: "301",
+    checkIn: "15 Avril 2026",
+    checkOut: "18 Avril 2026",
     status: "confirmed",
-    createdAt: "2026-04-20",
-  },
-  {
-    id: "r2",
-    hotelId: "h5",
-    hotelName: "Villa Aetheria Santorin",
-    roomId: "h5-r3",
-    roomName: "Suite Junior",
-    userId: "u1",
-    userName: "Alice Dubois",
-    checkIn: "2026-06-22",
-    checkOut: "2026-06-28",
+    price: 255,
+    acompte: 100,
+    image:
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop",
+    hotelPhone: "+243 99 123 4567",
+    hotelAddress: "Avenue Principale, Bunia",
     guests: 2,
-    total: 10368,
-    status: "pending",
-    createdAt: "2026-04-28",
   },
   {
-    id: "r3",
-    hotelId: "h2",
-    hotelName: "Maison Lumière Paris",
-    roomId: "h2-r1",
-    roomName: "Standard",
-    userId: "u1",
-    userName: "Alice Dubois",
-    checkIn: "2026-02-10",
-    checkOut: "2026-02-13",
-    guests: 1,
-    total: 1440,
+    id: 2,
+    hotel: "Grand Hôtel du Lac",
+    room: "Chambre Double",
+    roomNumber: "205",
+    checkIn: "25 Mai 2026",
+    checkOut: "27 Mai 2026",
+    status: "pending",
+    price: 130,
+    acompte: 50,
+    image:
+      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop",
+    hotelPhone: "+243 99 234 5678",
+    hotelAddress: "Rue du Commerce, Bunia",
+    guests: 2,
+  },
+  {
+    id: 3,
+    hotel: "Résidence Mahagi",
+    room: "Chambre Simple",
+    roomNumber: "102",
+    checkIn: "10 Février 2026",
+    checkOut: "12 Février 2026",
     status: "completed",
-    createdAt: "2026-01-15",
+    price: 100,
+    acompte: 40,
+    image:
+      "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&h=300&fit=crop",
+    hotelPhone: "+243 99 345 6789",
+    hotelAddress: "Centre Ville, Mahagi",
+    guests: 1,
+  },
+  {
+    id: 4,
+    hotel: "Auberge de l'Est",
+    room: "Chambre Double",
+    roomNumber: "108",
+    checkIn: "5 Janvier 2026",
+    checkOut: "6 Janvier 2026",
+    status: "cancelled",
+    price: 40,
+    acompte: 0,
+    image:
+      "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=300&fit=crop",
+    hotelPhone: "+243 99 456 7890",
+    hotelAddress: "Quartier Est, Aru",
+    guests: 2,
   },
 ];
 
-export const allCities = Array.from(
-  new Set(mockHotels.map((h) => h.city)),
-).sort();
-export const allTags = Array.from(
-  new Set(mockHotels.flatMap((h) => h.tags)),
-).sort();
+export const allCities = Array.from(new Set(Hotels.map((h) => h.city))).sort();
+// export const allTags = Array.from(
+//   new Set(Hotels.flatMap((h) => h.tags)),
+// ).sort();

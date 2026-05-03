@@ -1,3 +1,5 @@
+"use client";
+
 import {
   createContext,
   ReactNode,
@@ -7,7 +9,7 @@ import {
   useState,
 } from "react";
 import { Hotel, Reservation, User } from "@/types/types";
-import { mockHotels, mockReservations, mockUsers } from "@/data/mockData";
+import { Hotels, Reservations, Users } from "@/data/mockData";
 
 interface AppContextValue {
   user: User;
@@ -24,10 +26,9 @@ interface AppContextValue {
 const AppContext = createContext<AppContextValue | null>(null);
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User>(mockUsers[0]);
-  const [hotels] = useState<Hotel[]>(mockHotels);
-  const [reservations, setReservations] =
-    useState<Reservation[]>(mockReservations);
+  const [user, setUser] = useState<User>(Users[0]);
+  const [hotels] = useState<Hotel[]>(Hotels);
+  const [reservations, setReservations] = useState<Reservation[]>(Reservations);
   const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
 
   const openHotel = useCallback((h: Hotel) => setSelectedHotel(h), []);
