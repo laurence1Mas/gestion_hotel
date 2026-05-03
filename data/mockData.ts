@@ -1,4 +1,4 @@
-import { Hotel, Reservation, User } from "@/types";
+import { Hotel, Reservation, User } from "@/types/types";
 
 const img = (id: string) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1200&q=80`;
