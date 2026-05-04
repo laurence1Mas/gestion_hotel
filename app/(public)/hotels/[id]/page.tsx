@@ -1,7 +1,5 @@
 "use client";
 
-import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -147,13 +145,13 @@ for (let i = 2; i <= 8; i++) {
 }
 
 const amenityDetails: Record<string, { label: string; icon: React.ReactNode }> =
-  {
-    wifi: { label: "WiFi Gratuit", icon: <Wifi className="w-5 h-5" /> },
-    parking: { label: "Parking", icon: <Car className="w-5 h-5" /> },
-    restaurant: { label: "Restaurant", icon: <Coffee className="w-5 h-5" /> },
-    tv: { label: "TV", icon: <Tv className="w-5 h-5" /> },
-    ac: { label: "Climatisation", icon: <Wind className="w-5 h-5" /> },
-  };
+{
+  wifi: { label: "WiFi Gratuit", icon: <Wifi className="w-5 h-5" /> },
+  parking: { label: "Parking", icon: <Car className="w-5 h-5" /> },
+  restaurant: { label: "Restaurant", icon: <Coffee className="w-5 h-5" /> },
+  tv: { label: "TV", icon: <Tv className="w-5 h-5" /> },
+  ac: { label: "Climatisation", icon: <Wind className="w-5 h-5" /> },
+};
 
 export default function HotelDetailPage() {
   const params = useParams();
@@ -183,7 +181,6 @@ export default function HotelDetailPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
 
       <main className="flex-1 bg-background">
         {/* Back Button */}
@@ -221,11 +218,10 @@ export default function HotelDetailPage() {
                 <button
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
-                  className={`w-2 h-2 transition-colors ${
-                    index === currentImageIndex
+                  className={`w-2 h-2 transition-colors ${index === currentImageIndex
                       ? "bg-background"
                       : "bg-background/50"
-                  }`}
+                    }`}
                 />
               ))}
             </div>
@@ -493,7 +489,6 @@ export default function HotelDetailPage() {
           </div>
         </section>
       </main>
-      <Footer />
     </div>
   );
 }
