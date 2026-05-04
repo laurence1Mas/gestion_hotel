@@ -1,5 +1,20 @@
 import { Hotel, Reservation, User } from "@/types/types";
 
+// const img = (id: string) =>
+//   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1200&q=80`;
+
+// export const Users: User[] = [
+//   { id: "u1", name: "Alice Dubois", email: "alice@maison.com", role: "client" },
+//   {
+//     id: "u2",
+//     name: "Marc Laurent",
+//     email: "marc@hotelroyal.com",
+//     role: "manager",
+//     hotelId: "h1",
+//   },
+//   { id: "u3", name: "Sophie Admin", email: "admin@maison.com", role: "admin" },
+// ];
+
 const img = (id: string) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1200&q=80`;
 
@@ -659,72 +674,84 @@ export const Hotels: Hotel[] = [
 
 export const Reservations: Reservation[] = [
   {
-    id: 1,
-    hotel: "Hôtel Ituri Palace",
+    id: "r1",
+    createdAt: "2026-04-10T10:00:00Z",
+
+    userId: "u1",
+    userName: "Alice Dubois",
+
+    hotelId: 1,
+    hotel: "Le Royal Méditerranée",
+
     room: "Suite Deluxe",
     roomNumber: "301",
-    checkIn: "15 Avril 2026",
-    checkOut: "18 Avril 2026",
+
+    checkIn: "2026-04-15",
+    checkOut: "2026-04-18",
+
+    guests: 2,
     status: "confirmed",
+
     price: 255,
     acompte: 100,
-    image:
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop",
+
+    image: img("photo-1566073771259-6a8506099945"),
     hotelPhone: "+243 99 123 4567",
-    hotelAddress: "Avenue Principale, Bunia",
-    guests: 2,
+    hotelAddress: "Nice, Promenade des Anglais",
   },
   {
-    id: 2,
+    id: "r2",
+    createdAt: "2026-05-01T12:30:00Z",
+
+    userId: "u1",
+    userName: "Alice Dubois",
+
+    hotelId: 2,
     hotel: "Grand Hôtel du Lac",
+
     room: "Chambre Double",
     roomNumber: "205",
-    checkIn: "25 Mai 2026",
-    checkOut: "27 Mai 2026",
+
+    checkIn: "2026-05-25",
+    checkOut: "2026-05-27",
+
+    guests: 2,
     status: "pending",
+
     price: 130,
     acompte: 50,
-    image:
-      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop",
+
+    image: img("photo-1520250497591-112f2f40a3f4"),
     hotelPhone: "+243 99 234 5678",
-    hotelAddress: "Rue du Commerce, Bunia",
-    guests: 2,
+    hotelAddress: "Bunia centre",
   },
   {
-    id: 3,
+    id: "r3",
+    createdAt: "2026-02-10T09:00:00Z",
+
+    userId: "u2",
+    userName: "Marc Laurent",
+
+    hotelId: 1,
     hotel: "Résidence Mahagi",
+
     room: "Chambre Simple",
     roomNumber: "102",
-    checkIn: "10 Février 2026",
-    checkOut: "12 Février 2026",
+
+    checkIn: "2026-02-10",
+    checkOut: "2026-02-12",
+
+    guests: 1,
     status: "completed",
+
     price: 100,
     acompte: 40,
-    image:
-      "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&h=300&fit=crop",
+
+    image: img("photo-1582719508461-905c673771fd"),
     hotelPhone: "+243 99 345 6789",
-    hotelAddress: "Centre Ville, Mahagi",
-    guests: 1,
-  },
-  {
-    id: 4,
-    hotel: "Auberge de l'Est",
-    room: "Chambre Double",
-    roomNumber: "108",
-    checkIn: "5 Janvier 2026",
-    checkOut: "6 Janvier 2026",
-    status: "cancelled",
-    price: 40,
-    acompte: 0,
-    image:
-      "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=300&fit=crop",
-    hotelPhone: "+243 99 456 7890",
-    hotelAddress: "Quartier Est, Aru",
-    guests: 2,
+    hotelAddress: "Mahagi centre",
   },
 ];
 
+
 export const allCities = Array.from(new Set(Hotels.map((h) => h.city))).sort();
-// export const allTags = Array.from(
-//   new Set(Hotels.flatMap((h) => h.tags)),
-// ).sort();

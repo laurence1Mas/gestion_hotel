@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
 import { Hotels } from "@/data/mockData";
 import { HotelCard } from "@/components/HotelCard";
 
@@ -16,8 +15,6 @@ export default function HotelsPage() {
 
   // récupérer villes uniques
   const cities = ["Tous", ...new Set(Hotels.map((h) => h.city))];
-
-  console.log(Hotels.map((h) => h.id));
 
   return (
     <div className="px-4 md:px-10 py-6 overflow-x-hidden">

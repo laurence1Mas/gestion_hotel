@@ -29,6 +29,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User>(Users[0]);
   const [hotels] = useState<Hotel[]>(Hotels);
   const [reservations, setReservations] = useState<Reservation[]>(Reservations);
+
   const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
 
   const openHotel = useCallback((h: Hotel) => setSelectedHotel(h), []);
@@ -36,14 +37,13 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
   const addReservation = useCallback(
     (r: Omit<Reservation, "id" | "createdAt">) => {
-      setReservations((prev) => [
-        {
-          ...r,
-          id: `r${Date.now()}`,
-          createdAt: new Date().toISOString().slice(0, 10),
-        },
-        ...prev,
-      ]);
+      const newReservation: Reservation = {
+        ...r,
+        id: crypto.randomUUID(),
+        createdAt: new Date().toISOString(),
+      };
+
+      setReservations((prev) => [newReservation, ...prev]);
     },
     [],
   );

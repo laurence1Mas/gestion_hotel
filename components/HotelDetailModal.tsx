@@ -50,16 +50,23 @@ export const HotelDetailModal = () => {
 
   const handleBook = () => {
     if (!checkIn || !checkOut || nights <= 0) return;
+
+
     addReservation({
       hotelId: hotel.id,
-      hotelName: hotel.name,
-      roomId: room.id,
+      hotel: hotel.name, // ✅ FIX
+      room: room.type,
+      roomNumber: String(room.id),
       userId: user.id,
       userName: user.name,
       checkIn,
       checkOut,
       guests,
-      total,
+      price: room.price,
+      acompte: 0,
+      image: hotel.image[0],
+      hotelPhone: "",
+      hotelAddress: hotel.city,
       status: "confirmed",
     });
     setBooked(true);
@@ -127,7 +134,6 @@ export const HotelDetailModal = () => {
                     <MapPin className="w-6 h-6 text-accent-foreground" />
                   </div>
                 </div>
-           
               </div>
               <button className="absolute bottom-3 right-3 btn-ghost text-xs px-3 py-1.5 bg-background/95 backdrop-blur">
                 Voir sur la carte
@@ -151,7 +157,6 @@ export const HotelDetailModal = () => {
                   ({hotel.reviews} avis)
                 </span>
               </div>
-             
             </div>
 
             <p className="text-muted-foreground leading-relaxed mb-6">

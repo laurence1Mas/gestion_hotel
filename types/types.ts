@@ -6,7 +6,7 @@ export interface User {
   email: string;
   role: UserRole;
   avatar?: string;
-  hotelId?: string; // for managers
+  hotelId?: string;
 }
 
 export interface Room {
@@ -43,17 +43,29 @@ export type ReservationStatus =
   | "cancelled";
 
 export interface Reservation {
-  id: number;
+  id: string;
+  createdAt: string;
+
+  userId: string;
+  userName: string;
+
+  hotelId: number;
   hotel: string;
+
   room: string;
   roomNumber: string;
+
   checkIn: string;
   checkOut: string;
-  status: string;
+
+  guests: number;
+
+  status: ReservationStatus;
+
   price: number;
   acompte: number;
+
   image: string;
   hotelPhone: string;
   hotelAddress: string;
-  guests: number;
 }
