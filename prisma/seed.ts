@@ -12,14 +12,15 @@ async function main() {
   }
 
   // Example: mysql://root:password@localhost:3306/dbname
-  const urlPattern = /mysql:\/\/([^:]+):([^@]*)@([^:]+):(\d+)\/(.+)/;
+  // Example: mysql://root:password@localhost:3306/dbname or mysql://root@localhost:3306/dbname
+  const urlPattern = /mysql:\/\/([^:]+)(?::([^@]*))?@([^:]+):(\d+)\/(.+)/;
   const match = dbUrl.match(urlPattern);
 
   if (!match) {
-    throw new Error("Invalid DATABASE_URL format");
+    throw new Error("Invalid DATABASE_URL format. Expected mysql://user:password@host:port/database or mysql://user@host:port/database");
   }
 
-  const [_, user, password, host, port, database] = match;
+  const [_, user, password = '', host, port, database] = match;
 
   const connection = await mysql.createConnection({
     host,
@@ -30,25 +31,46 @@ async function main() {
   });
 
   try {
+    // Admin user
     const adminEmail = "admin@zuaplace.com";
     const adminPassword = "adminpassword123";
-    const hashedPassword = await bcrypt.hash(adminPassword, 10);
+    const hashedAdminPassword = await bcrypt.hash(adminPassword, 10);
 
-    // Check if exists
-    const [rows]: any = await connection.execute(
-      'SELECT id FROM User WHERE email = ?',
-      [adminEmail]
-    );
+    const [adminRows]: any = await connection.execute('SELECT id FROM User WHERE email = ?', [adminEmail]);
 
-    if (rows.length === 0) {
+    if (adminRows.length === 0) {
       const id = `admin-${Date.now()}`;
       await connection.execute(
         'INSERT INTO User (id, email, username, password, role, isActive, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())',
-        [id, adminEmail, 'admin', hashedPassword, 'ADMIN', 1]
+        [id, adminEmail, 'admin', hashedAdminPassword, 'ADMIN', 1]
       );
       console.log(`Admin user created: ${adminEmail}`);
-    } else {
-      console.log("Admin user already exists.");
+    }
+
+    // Client user
+    const clientEmail = "client@zuaplace.com";
+    const clientPassword = "clientpassword123";
+    const hashedClientPassword = await bcrypt.hash(clientPassword, 10);
+
+    const [clientRows]: any = await connection.execute('SELECT id FROM User WHERE email = ?', [clientEmail]);
+
+    if (clientRows.length === 0) {
+      const userId = `client-user-${Date.now()}`;
+      const clientId = `client-${Date.now()}`;
+      
+      // Insert User
+      await connection.execute(
+        'INSERT INTO User (id, email, username, password, role, isActive, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())',
+        [userId, clientEmail, 'client', hashedClientPassword, 'CLIENT', 1]
+      );
+      
+      // Insert Client profile (required by the schema relation)
+      await connection.execute(
+        'INSERT INTO Client (id, name, userId, isActive, createdAt, updatedAt) VALUES (?, ?, ?, ?, NOW(), NOW())',
+        [clientId, 'Test Client', userId, 1]
+      );
+      
+      console.log(`Client user created: ${clientEmail}`);
     }
   } catch (error) {
     console.error("Error during seeding:", error);

@@ -5,7 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(prisma),
+  // adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -17,6 +17,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Invalid credentials")
         }
+
+        // --- Mock login for demo/testing without backend ---
+        if (credentials.email === "admin@demo.com") {
+          return { id: "mock-admin", email: "admin@demo.com", role: "ADMIN", name: "Mock Admin" }
+        }
+        if (credentials.email === "hotel@demo.com") {
+          return { id: "mock-hotel", email: "hotel@demo.com", role: "HOTEL", name: "Mock Hotel" }
+        }
+        if (credentials.email === "client@demo.com") {
+          return { id: "mock-client", email: "client@demo.com", role: "CLIENT", name: "Mock Client" }
+        }
+        // ----------------------------------------------------
 
         const user = await prisma.user.findUnique({
           where: {
@@ -64,4 +76,5 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     strategy: "jwt",
   },
   secret: process.env.AUTH_SECRET,
+  trustHost: true,
 })

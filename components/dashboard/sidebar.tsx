@@ -87,6 +87,7 @@ export function DashboardSidebar({ type, isOpen, onClose }: SidebarProps) {
               alt="logo zua place"
               width={120}
               height={80}
+              style={{ height: "auto" }}
             />
           </Link>
           <button

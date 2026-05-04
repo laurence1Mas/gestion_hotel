@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, DM_Sans } from "next/font/google";
+import AuthProvider from "@/components/providers/AuthProvider";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -33,7 +34,9 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${poppins.variable} ${dmSans.variable}`}>
       <body className="font-sans antialiased bg-background text-foreground flex min-h-screen flex-col">
-        <main className="flex-1">{children}</main>
+        <AuthProvider>
+          <main className="flex-1">{children}</main>
+        </AuthProvider>
       </body>
     </html> 
   );
