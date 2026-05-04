@@ -1,0 +1,190 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  HOTEL
+  CLIENT
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum RoomStatus {
+  AVAILABLE
+  OCCUPIED
+  MAINTENANCE
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String?  @unique
+  email     String   @unique
+  password  String
+  role      Role     @default(CLIENT)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  client Client?
+  hotel  Hotel?
+}
+
+model Client {
+  id        String   @id @default(cuid())
+  name      String?
+  phone     String?
+  address   String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  userId       String        @unique
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reservations Reservation[]
+}
+
+model Hotel {
+  id          String   @id @default(cuid())
+  name        String
+  description String?  @db.Text
+  address     String
+  city        String
+  stars       Int      @default(0)
+  rating      Float    @default(0)
+  reviews     Int      @default(0)
+  images      Json? // Array of URLs
+  amenities   Json? // Array of amenities
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  userId      String             @unique
+  owner       User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rooms       Chambre[]
+  categories  CategorieChambre[]
+  abonnements Abonnement[]
+}
+
+model CategorieChambre {
+  id          String   @id @default(cuid())
+  name        String
+  description String?  @db.Text
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  hotelId String
+  hotel   Hotel     @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+  rooms   Chambre[]
+}
+
+model Chambre {
+  id          String     @id @default(cuid())
+  number      String
+  price       Float
+  capacity    Int
+  description String?    @db.Text
+  images      Json?
+  amenities   Json?
+  status      RoomStatus @default(AVAILABLE)
+  isActive    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  // Relations
+  hotelId      String
+  hotel        Hotel            @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+  categoryId   String
+  category     CategorieChambre @relation(fields: [categoryId], references: [id])
+  reservations Reservation[]
+}
+
+model Visiteur {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?
+  phone     String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  reservations Reservation[]
+}
+
+model Reservation {
+  id         String        @id @default(cuid())
+  checkIn    DateTime
+  checkOut   DateTime
+  totalPrice Float
+  acompte    Float         @default(0)
+  guests     Int           @default(1)
+  status     BookingStatus @default(PENDING)
+  isActive   Boolean       @default(true)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  // Relations
+  roomId     String
+  room       Chambre   @relation(fields: [roomId], references: [id])
+  clientId   String?
+  client     Client?   @relation(fields: [clientId], references: [id])
+  visiteurId String?
+  visiteur   Visiteur? @relation(fields: [visiteurId], references: [id])
+  payments   Payment[]
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  amount        Float
+  method        String? // e.g., Card, Cash, Mobile Money
+  transactionId String?       @unique
+  status        PaymentStatus @default(PENDING)
+  isActive      Boolean       @default(true)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  // Relations
+  reservationId String
+  reservation   Reservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
+}
+
+model Abonnement {
+  id        String    @id @default(cuid())
+  type      String // e.g., Basic, Premium, Enterprise
+  startDate DateTime  @default(now())
+  endDate   DateTime?
+  price     Float?
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  // Relations
+  hotelId String
+  hotel   Hotel  @relation(fields: [hotelId], references: [id], onDelete: Cascade)
+}
