@@ -1,6 +1,4 @@
 "use client";
-
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -27,7 +25,6 @@ import {
   MapPin,
   Search,
   SlidersHorizontal,
-  Star,
   Wifi,
 } from "lucide-react";
 import Link from "next/link";
@@ -86,11 +83,6 @@ export default function HotelsPage() {
         ? prev.filter((id) => id !== amenityId)
         : [...prev, amenityId],
     );
-  };
-
-  const handleOpenModal = (hotel: any) => {
-    setSelectHotel(hotel);
-    setIsModalOpen(true);
   };
 
   return (
@@ -269,78 +261,6 @@ export default function HotelsPage() {
               <div className="gap-6 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {filteredHotels.map((hotel) => (
                   <HotelCard key={`${hotel.id}-${hotel.name}`} hotel={hotel} />
-                  // <Link key={hotel.id} href={`/hotels/${hotel.id}`}>
-                  //   <Card className="group hover:shadow-xl border-border rounded-3xl h-full overflow-hidden transition-all duration-300">
-                  //     <div className="relative aspect-[4/3] overflow-hidden">
-                  //       <img
-                  //         src={`${hotel.image}`}
-                  //         alt={hotel.name}
-                  //         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  //       />
-                  //       {hotel.featured && (
-                  //         <Badge className="top-4 left-4 absolute bg-accent rounded-full text-accent-foreground">
-                  //           Populaire
-                  //         </Badge>
-                  //       )}
-                  //       <div className="right-4 bottom-4 absolute flex items-center gap-1 bg-card/90 backdrop-blur px-3 py-1 rounded-full">
-                  //         <Star className="fill-accent w-4 h-4 text-accent" />
-                  //         <span className="font-semibold text-sm">
-                  //           {hotel.rating}
-                  //         </span>
-                  //         <span className="text-muted-foreground text-xs">
-                  //           ({hotel.reviews})
-                  //         </span>
-                  //       </div>
-                  //     </div>
-                  //     <CardContent className="p-5">
-                  //       <div className="space-y-3">
-                  //         <div>
-                  //           <h3 className="font-semibold group-hover:text-primary text-lg line-clamp-1 transition-colors">
-                  //             {hotel.name}
-                  //           </h3>
-                  //           <div className="flex items-center gap-1 text-muted-foreground text-sm">
-                  //             <MapPin className="w-3 h-3" />
-                  //             {hotel.city}, Ituri
-                  //           </div>
-                  //         </div>
-                  //         <p className="text-muted-foreground text-sm line-clamp-2">
-                  //           {hotel.description}
-                  //         </p>
-                  //         <div className="flex justify-between items-center pt-2">
-                  //           <div className="flex gap-2">
-                  //             {/* CORRECTION : On s'assure que amenity est traité comme une string pour l'icône */}
-                  //             {hotel.amenities.map((amenity: any) => (
-                  //               <div
-                  //                 key={
-                  //                   typeof amenity === "string"
-                  //                     ? amenity
-                  //                     : amenity.id
-                  //                 }
-                  //                 className="flex justify-center items-center bg-muted rounded-full w-8 h-8 text-muted-foreground"
-                  //               >
-                  //                 {
-                  //                   amenityIcons[
-                  //                     typeof amenity === "string"
-                  //                       ? amenity
-                  //                       : amenity.id
-                  //                   ]
-                  //                 }
-                  //               </div>
-                  //             ))}
-                  //           </div>
-                  //           <div className="text-right">
-                  //             <p className="font-serif font-bold text-primary text-xl">
-                  //               ${hotel.price}
-                  //             </p>
-                  //             <p className="text-muted-foreground text-xs">
-                  //               /nuit
-                  //             </p>
-                  //           </div>
-                  //         </div>
-                  //       </div>
-                  //     </CardContent>
-                  //   </Card>
-                  // </Link>
                 ))}
               </div>
             ) : (
