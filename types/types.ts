@@ -36,6 +36,12 @@ export interface Hotel {
   featured: boolean;
 }
 
+export type ReservationStatus =
+  | "confirmed"
+  | "pending"
+  | "completed"
+  | "cancelled";
+
 export interface Reservation {
   id: number;
   hotel: string;
