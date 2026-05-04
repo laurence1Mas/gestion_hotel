@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Poppins, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { AppProvider } from "@/context/AppContext";
-import { HotelDetailModal } from "@/components/hotelDetailModal";
+import { HotelDetailModal } from "@/components/HotelDetailModal";
 
 const poppins = Poppins({
   subsets: ["latin"],

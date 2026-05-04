@@ -51,7 +51,6 @@ export const HotelDetailModal = () => {
   const handleBook = () => {
     if (!checkIn || !checkOut || nights <= 0) return;
 
-
     addReservation({
       hotelId: hotel.id,
       hotel: hotel.name, // ✅ FIX
