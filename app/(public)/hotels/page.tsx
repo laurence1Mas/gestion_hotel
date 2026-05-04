@@ -259,7 +259,7 @@ export default function HotelsPage() {
             {/* Hotels Grid */}
             {filteredHotels.length > 0 ? (
               <div className="gap-6 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {filteredHotels.map((hotel) => (
+                {filteredHotels.slice(0, 8).map((hotel) => (
                   <HotelCard key={`${hotel.id}-${hotel.name}`} hotel={hotel} />
                 ))}
               </div>
