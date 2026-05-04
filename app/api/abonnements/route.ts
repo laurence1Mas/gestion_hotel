@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { AbonnementService } from "@/services/abonnement.service";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const abonnements = await AbonnementService.getAllAbonnements();

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { PaymentService } from "@/services/payment.service";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const payments = await PaymentService.getAllPayments();

@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { UserService } from "@/services/user.service";
 import { Role } from "@prisma/client";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);

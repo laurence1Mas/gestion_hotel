@@ -1,27 +1,32 @@
 import { NextResponse } from "next/server";
 import { HotelService } from "@/services/hotel.service";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const hotel = await HotelService.getHotelById(params.id);
+    const { id } = await params;
+    const hotel = await HotelService.getHotelById(id);
     if (!hotel) {
       return NextResponse.json({ error: "Hotel not found" }, { status: 404 });
     }
     return NextResponse.json(hotel);
   } catch (error) {
-    console.error(`GET /api/hotels/${params.id} error:`, error);
+    const { id } = await params;
+    console.error(`GET /api/hotels/${id} error:`, error);
     return NextResponse.json({ error: "Failed to fetch hotel" }, { status: 500 });
   }
 }
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await request.json();
     const { isActive } = body;
 
@@ -29,10 +34,11 @@ export async function PATCH(
       return NextResponse.json({ error: "isActive must be a boolean" }, { status: 400 });
     }
 
-    const hotel = await HotelService.updateStatus(params.id, isActive);
+    const hotel = await HotelService.updateStatus(id, isActive);
     return NextResponse.json(hotel);
   } catch (error) {
-    console.error(`PATCH /api/hotels/${params.id} error:`, error);
+    const { id } = await params;
+    console.error(`PATCH /api/hotels/${id} error:`, error);
     return NextResponse.json({ error: "Failed to update hotel status" }, { status: 500 });
   }
 }

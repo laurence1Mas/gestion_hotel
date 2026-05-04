@@ -1,15 +1,19 @@
 import { NextResponse } from "next/server";
 import { RoomService } from "@/services/room.service";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(
   request: Request,
-  { params }: { params: { hotelId: string } }
+  { params }: { params: Promise<{ hotelId: string }> }
 ) {
   try {
-    const categories = await RoomService.getCategoriesByHotel(params.hotelId);
+    const { hotelId } = await params;
+    const categories = await RoomService.getCategoriesByHotel(hotelId);
     return NextResponse.json(categories);
   } catch (error) {
-    console.error(`GET /api/rooms/categories/${params.hotelId} error:`, error);
+    const { hotelId } = await params;
+    console.error(`GET /api/rooms/categories/${hotelId} error:`, error);
     return NextResponse.json({ error: "Failed to fetch categories" }, { status: 500 });
   }
 }

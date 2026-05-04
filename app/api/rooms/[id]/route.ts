@@ -1,16 +1,20 @@
 import { NextResponse } from "next/server";
 import { RoomService } from "@/services/room.service";
 
+export const dynamic = "force-dynamic";
+
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await request.json();
-    const room = await RoomService.updateRoom(params.id, body);
+    const room = await RoomService.updateRoom(id, body);
     return NextResponse.json(room);
   } catch (error) {
-    console.error(`PATCH /api/rooms/${params.id} error:`, error);
+    const { id } = await params;
+    console.error(`PATCH /api/rooms/${id} error:`, error);
     return NextResponse.json({ error: "Failed to update room" }, { status: 500 });
   }
 }

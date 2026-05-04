@@ -1,20 +1,24 @@
 import { NextResponse } from "next/server";
 import { PaymentService } from "@/services/payment.service";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const balance = await PaymentService.calculateBalance(params.id);
-    const payments = await PaymentService.getReservationPayments(params.id);
+    const { id } = await params;
+    const balance = await PaymentService.calculateBalance(id);
+    const payments = await PaymentService.getReservationPayments(id);
     
     return NextResponse.json({
       ...balance,
       payments
     });
   } catch (error) {
-    console.error(`GET /api/payments/reservation/${params.id} error:`, error);
+    const { id } = await params;
+    console.error(`GET /api/payments/reservation/${id} error:`, error);
     return NextResponse.json({ error: "Failed to fetch reservation balance" }, { status: 500 });
   }
 }
