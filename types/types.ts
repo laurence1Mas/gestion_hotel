@@ -33,6 +33,7 @@ export interface Hotel {
   rooms: Room[];
   revenue: number;
   occupancy: number;
+  featured: boolean;
 }
 
 export interface Reservation {

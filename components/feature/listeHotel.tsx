@@ -32,18 +32,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { hotels, Amenity } from "@/lib/hotelData";
-import { HotelDetailModal } from "../hotelDetailModal";
+import { Hotels } from "@/data/mockData";
+import { HotelCard } from "../HotelCard";
 
-const cities = [
-  "Toutes",
-  "Bunia",
-  "Mahagi",
-  "Aru",
-  "Djugu",
-  "Irumu",
-  "Mambasa",
-];
+const cities = ["Toutes", "Nice", "Mahagi", "Aru", "Djugu", "Irumu", "Mambasa"];
 
 // Mapping des icônes basé sur l'ID de l'équipement
 const amenityIcons: Record<string, React.ReactNode> = {
@@ -55,42 +47,38 @@ const amenityIcons: Record<string, React.ReactNode> = {
 export default function HotelsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCity, setSelectedCity] = useState("Toutes");
-  const [priceRange, setPriceRange] = useState([0, 150]);
+  const [priceRange, setPriceRange] = useState([0, 500]);
   const [sortBy, setSortBy] = useState("rating");
-  const [selectHotel, setSelectHotel] = useState<any>(null);
-  const [inModalOpen, setIsModalOpen] = useState(false);
 
   // CORRECTION : On stocke les IDs (string), pas les objets complets
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
 
-  const filteredHotels = hotels
-    .filter((hotel) => {
-      const matchesSearch =
-        hotel.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        hotel.description.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredHotels = Hotels.filter((hotel) => {
+    const matchesSearch =
+      hotel.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      hotel.description.toLowerCase().includes(searchQuery.toLowerCase());
 
-      const matchesCity =
-        selectedCity === "Toutes" || hotel.city === selectedCity;
+    const matchesCity =
+      selectedCity === "Toutes" || hotel.city === selectedCity;
 
-      const matchesPrice =
-        hotel.price >= priceRange[0] && hotel.price <= priceRange[1];
+    const matchesPrice =
+      hotel.price >= priceRange[0] && hotel.price <= priceRange[1];
 
-      // CORRECTION : Vérification si l'hôtel possède TOUS les équipements sélectionnés
-      const matchesAmenities =
-        selectedAmenities.length === 0 ||
-        selectedAmenities.every((id) => hotel.amenities.includes(id as any));
-      // Note: 'as any' ou un cast est utilisé ici selon si hotel.amenities est string[] ou Amenity[]
+    // CORRECTION : Vérification si l'hôtel possède TOUS les équipements sélectionnés
+    const matchesAmenities =
+      selectedAmenities.length === 0 ||
+      selectedAmenities.every((id) => hotel.amenities.includes(id as any));
+    // Note: 'as any' ou un cast est utilisé ici selon si hotel.amenities est string[] ou Amenity[]
 
-      return matchesSearch && matchesCity && matchesPrice && matchesAmenities;
-    })
-    .sort((a, b) => {
-      if (sortBy === "rating") return b.rating - a.rating;
-      if (sortBy === "price-low") return a.price - b.price;
-      if (sortBy === "price-high") return b.price - a.price;
-      if (sortBy === "reviews") return b.reviews - a.reviews;
-      return 0;
-    });
+    return matchesSearch && matchesCity && matchesPrice && matchesAmenities;
+  }).sort((a, b) => {
+    if (sortBy === "rating") return b.rating - a.rating;
+    if (sortBy === "price-low") return a.price - b.price;
+    if (sortBy === "price-high") return b.price - a.price;
+    if (sortBy === "reviews") return b.reviews - a.reviews;
+    return 0;
+  });
 
   const toggleAmenity = (amenityId: string) => {
     setSelectedAmenities((prev) =>
@@ -208,8 +196,8 @@ export default function HotelsPage() {
                         <Slider
                           value={priceRange}
                           onValueChange={setPriceRange}
-                          max={150}
-                          step={5}
+                          max={500}
+                          step={10}
                         />
                       </div>
 
@@ -280,78 +268,79 @@ export default function HotelsPage() {
             {filteredHotels.length > 0 ? (
               <div className="gap-6 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {filteredHotels.map((hotel) => (
-                  <Link key={hotel.id} href={`/hotels/${hotel.id}`}>
-                    <Card className="group hover:shadow-xl border-border rounded-3xl h-full overflow-hidden transition-all duration-300">
-                      <div className="relative aspect-[4/3] overflow-hidden">
-                        <img
-                          src={hotel.image}
-                          alt={hotel.name}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                        />
-                        {hotel.featured && (
-                          <Badge className="top-4 left-4 absolute bg-accent rounded-full text-accent-foreground">
-                            Populaire
-                          </Badge>
-                        )}
-                        <div className="right-4 bottom-4 absolute flex items-center gap-1 bg-card/90 backdrop-blur px-3 py-1 rounded-full">
-                          <Star className="fill-accent w-4 h-4 text-accent" />
-                          <span className="font-semibold text-sm">
-                            {hotel.rating}
-                          </span>
-                          <span className="text-muted-foreground text-xs">
-                            ({hotel.reviews})
-                          </span>
-                        </div>
-                      </div>
-                      <CardContent className="p-5">
-                        <div className="space-y-3">
-                          <div>
-                            <h3 className="font-semibold group-hover:text-primary text-lg line-clamp-1 transition-colors">
-                              {hotel.name}
-                            </h3>
-                            <div className="flex items-center gap-1 text-muted-foreground text-sm">
-                              <MapPin className="w-3 h-3" />
-                              {hotel.city}, Ituri
-                            </div>
-                          </div>
-                          <p className="text-muted-foreground text-sm line-clamp-2">
-                            {hotel.description}
-                          </p>
-                          <div className="flex justify-between items-center pt-2">
-                            <div className="flex gap-2">
-                              {/* CORRECTION : On s'assure que amenity est traité comme une string pour l'icône */}
-                              {hotel.amenities.map((amenity: any) => (
-                                <div
-                                  key={
-                                    typeof amenity === "string"
-                                      ? amenity
-                                      : amenity.id
-                                  }
-                                  className="flex justify-center items-center bg-muted rounded-full w-8 h-8 text-muted-foreground"
-                                >
-                                  {
-                                    amenityIcons[
-                                      typeof amenity === "string"
-                                        ? amenity
-                                        : amenity.id
-                                    ]
-                                  }
-                                </div>
-                              ))}
-                            </div>
-                            <div className="text-right">
-                              <p className="font-serif font-bold text-primary text-xl">
-                                ${hotel.price}
-                              </p>
-                              <p className="text-muted-foreground text-xs">
-                                /nuit
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
+                  <HotelCard key={`${hotel.id}-${hotel.name}`} hotel={hotel} />
+                  // <Link key={hotel.id} href={`/hotels/${hotel.id}`}>
+                  //   <Card className="group hover:shadow-xl border-border rounded-3xl h-full overflow-hidden transition-all duration-300">
+                  //     <div className="relative aspect-[4/3] overflow-hidden">
+                  //       <img
+                  //         src={`${hotel.image}`}
+                  //         alt={hotel.name}
+                  //         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  //       />
+                  //       {hotel.featured && (
+                  //         <Badge className="top-4 left-4 absolute bg-accent rounded-full text-accent-foreground">
+                  //           Populaire
+                  //         </Badge>
+                  //       )}
+                  //       <div className="right-4 bottom-4 absolute flex items-center gap-1 bg-card/90 backdrop-blur px-3 py-1 rounded-full">
+                  //         <Star className="fill-accent w-4 h-4 text-accent" />
+                  //         <span className="font-semibold text-sm">
+                  //           {hotel.rating}
+                  //         </span>
+                  //         <span className="text-muted-foreground text-xs">
+                  //           ({hotel.reviews})
+                  //         </span>
+                  //       </div>
+                  //     </div>
+                  //     <CardContent className="p-5">
+                  //       <div className="space-y-3">
+                  //         <div>
+                  //           <h3 className="font-semibold group-hover:text-primary text-lg line-clamp-1 transition-colors">
+                  //             {hotel.name}
+                  //           </h3>
+                  //           <div className="flex items-center gap-1 text-muted-foreground text-sm">
+                  //             <MapPin className="w-3 h-3" />
+                  //             {hotel.city}, Ituri
+                  //           </div>
+                  //         </div>
+                  //         <p className="text-muted-foreground text-sm line-clamp-2">
+                  //           {hotel.description}
+                  //         </p>
+                  //         <div className="flex justify-between items-center pt-2">
+                  //           <div className="flex gap-2">
+                  //             {/* CORRECTION : On s'assure que amenity est traité comme une string pour l'icône */}
+                  //             {hotel.amenities.map((amenity: any) => (
+                  //               <div
+                  //                 key={
+                  //                   typeof amenity === "string"
+                  //                     ? amenity
+                  //                     : amenity.id
+                  //                 }
+                  //                 className="flex justify-center items-center bg-muted rounded-full w-8 h-8 text-muted-foreground"
+                  //               >
+                  //                 {
+                  //                   amenityIcons[
+                  //                     typeof amenity === "string"
+                  //                       ? amenity
+                  //                       : amenity.id
+                  //                   ]
+                  //                 }
+                  //               </div>
+                  //             ))}
+                  //           </div>
+                  //           <div className="text-right">
+                  //             <p className="font-serif font-bold text-primary text-xl">
+                  //               ${hotel.price}
+                  //             </p>
+                  //             <p className="text-muted-foreground text-xs">
+                  //               /nuit
+                  //             </p>
+                  //           </div>
+                  //         </div>
+                  //       </div>
+                  //     </CardContent>
+                  //   </Card>
+                  // </Link>
                 ))}
               </div>
             ) : (
