@@ -22,6 +22,7 @@ export default function Footer() {
                 alt="primary logo Zua Place"
                 width={180}
                 height={70}
+                style={{ height: "auto" }}
               />
             </Link>
             <p className="text-background/70 text-sm leading-relaxed">

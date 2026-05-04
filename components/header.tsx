@@ -22,6 +22,7 @@ export default function Header() {
             alt="logo primaire Zua Place"
             width={120}
             height={80}
+            style={{ height: "auto" }}
           />
         </Link>
 

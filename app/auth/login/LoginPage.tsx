@@ -13,6 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Eye, EyeOff, Hotel, Loader2, Lock, Mail, User } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { useState } from "react";
 
 export default function LoginPage() {
@@ -31,12 +32,28 @@ export default function LoginPage() {
     e.preventDefault();
     setIsLoading(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const result = await signIn("credentials", {
+        email: formData.email,
+        password: formData.password,
+        redirect: false,
+      });
 
-    if (type === "hotel") {
-      router.push("/dashboard/hotel");
-    } else {
-      router.push("/dashboard/client");
+      if (result?.error) {
+        console.error("Login failed:", result.error);
+        setIsLoading(false);
+        return;
+      }
+
+      // If successful, redirect based on the type
+      if (type === "hotel") {
+        router.push("/dashboard/hotel");
+      } else {
+        router.push("/dashboard/client");
+      }
+    } catch (error) {
+      console.error("An error occurred during login:", error);
+      setIsLoading(false);
     }
   };
 
