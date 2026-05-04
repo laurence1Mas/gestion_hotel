@@ -1,18 +1,15 @@
 import NextAuth from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import prisma from "@/lib/prisma"
-import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
+import { authConfig } from "@/auth.config"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  // adapter: PrismaAdapter(prisma),
+  ...authConfig,
+  // adapter: PrismaAdapter(prisma), // Gardez désactivé comme demandé précédemment
   providers: [
-    CredentialsProvider({
-      name: "credentials",
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
-      },
+    {
+      ...authConfig.providers[0],
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Invalid credentials")
@@ -51,30 +48,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         return user
       }
-    })
-  ],
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.role = (user as any).role
-        token.id = user.id
-      }
-      return token
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        (session.user as any).role = token.role;
-        (session.user as any).id = token.id;
-      }
-      return session
     }
-  },
-  pages: {
-    signIn: "/auth/login",
-  },
-  session: {
-    strategy: "jwt",
-  },
-  secret: process.env.AUTH_SECRET,
-  trustHost: true,
+  ],
 })
